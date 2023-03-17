@@ -1,0 +1,163 @@
+/* Estilo para centrar la imagen */
+img {
+    display: block;
+    margin: 0 auto;
+}
+/* Estilo para poner el fondo en negro */
+body {
+    background-color: white;
+    
+}
+/* Estilo para fijar el pie al final de página*/
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.alinear a, 
+.alinear a:hover,
+.alinear a:focus{
+    color: inherit;
+    text-decoration: none;
+
+}
+.alinear{
+    
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+#left{
+    position: fixed;
+    height: inherit;
+}
+
+#leftmenu{
+    position: fixed;
+    width: 220px;
+    background: rgb(69, 69, 199);
+    color:white;
+    /*overflow-y: scroll;*/
+    height: inherit;
+}
+
+/*#lista{
+    overflow-y: none;
+}*/
+
+#leftmenu .encabezado{
+    padding: 20px;
+    background: rgb(51, 51, 141);
+}
+#leftmenu ul li{
+    padding: 5px;
+    
+    
+}
+
+#leftmenu ul li a{
+    padding: 10px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+#leftmenu ul a{
+    width:100%;
+}
+
+
+#leftmenu ul a:hover{
+    background:white;
+    color:rgb(69, 69, 199);
+
+}
+
+
+
+#leftmenu ul ul a{
+    padding-left: 30px ;
+    font-size: 14px ;
+
+}
+
+
+#leftmenu ul li a i{
+    padding-right: 5px ;
+
+}
+
+.fastoptions{
+    padding: 15px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    /*width: 100%;*/
+    
+}
+
+
+
+#logoIndex{
+    max-width: 200px;
+}
+
+#logoLeft{
+    max-width: 150px;
+}
+
+#buscador{
+    margin: 2em;
+    display: inline-block;
+}
+
+#buscador button, input{
+    margin: 5px;
+}
+#contenido{
+    
+    margin-top: 80px ;
+    border: 2px solid red;
+}
+
+#botones{
+    background: white;
+    position: fixed;
+    width: -webkit-fill-available;
+    border: 2px solid black;
+}
+#right{
+    left: 220px;
+    width: -webkit-fill-available;
+    position: absolute;
+
+}
+
+.nav-item-divider {
+    height: 1px;
+    margin: 1rem 0;
+    overflow: hidden;
+    background-color: rgba(236, 238, 239, 0.3);
+}
+
+#cierre{
+    
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+}
+#cierre a{
+    padding: 20px;
+}
+
+#cierre a i{
+    padding: 5px;
+}
+
+#botonesmodal{
+    text-align: center;
+    padding: 10px;
+}
+
+.iconoboton{
+    padding: 5px;
+}

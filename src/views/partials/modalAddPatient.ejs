@@ -1,0 +1,40 @@
+<div class="modal" id="modalAddPatient">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Crear Usuario</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/menu" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" >  
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="email" class="form-control" placeholder="Email" name="email" >
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="text"  class="form-control" placeholder="Telefono" name="telefono">
+                        </div>
+                        
+                    </div>
+                    <div id="botonesmodal from-group">
+                        <button type="submit" class="btn btn-success btn-md" >Crear</button>
+                        <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+
+                </form>
+                
+            </div>
+            <!--<div class="modal-footer">
+                <button type="submit" name="submit" value="Submit" class="btn btn-success btn-md" >Crear</button>
+                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+            </div>-->
+        </div>
+    </div>    
+</div>

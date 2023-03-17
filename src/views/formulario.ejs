@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head')%>
+<body>
+    <div class="alinear">
+        <%- include('partials/leftmenu')%>
+        <div id="right">
+            <div id="botones">
+                <%- include('partials/buttons')%>
+            </div>
+                      
+            <div id="contenido">
+                <div class="container">
+                    <div class="text-center">
+                        <div class="col-md-6 text-center" id="buscador">
+                            <form class="d-flex">
+                                <input class="form-control me 2" type="search" placeholder="Buscar pacientes">
+                                <button class="btn btn-outline-info" type="send">Search</button>
+                            </form>
+        
+        
+                        </div>
+    
+                    </div>
+
+                </div>
+                
+                
+                
+                    <div class="container">
+                        <form action="/formulario" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre">  
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="apellidos" class="form-control" placeholder="Apellidos">
+                            </div>
+                            <div class="from-group">
+                                <button type="submit" class="btn btn-success btn-md" >Crear</button>
+                            </div>    
+                            
+        
+                        </form>
+                        
+                    </div>
+                    
+
+                
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+
+    <%- include('partials/modalAddPatient')%>
+    <%- include('partials/modalPresupuesto')%>
+
+
+    
+    <%- include('partials/footerJS')%>
+</body>
+</html>
