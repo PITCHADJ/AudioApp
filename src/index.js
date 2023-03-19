@@ -7,7 +7,7 @@ const express = require('express');
 const path = require('path');
 //const indexRoutes=require('./routes/routes')
 const morgan = require('morgan');
-const bodyparser = require('body-parser');
+
 
 const app= express();
 
@@ -25,7 +25,7 @@ app.set('view engine','ejs');
 //Routes
 app.use(require('./routes/routes'));
 app.use(require('./routes/authentication'));
-app.use('/users',require('./routes/users'));
+app.use('/pacientes',require('./routes/patients'));
 
 //public
 app.use(express.static(path.join(__dirname,'public')));

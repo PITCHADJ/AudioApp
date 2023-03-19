@@ -60,7 +60,7 @@ footer {
     padding: 10px;
     display: inline-block;
     font-size: 16px;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 #leftmenu ul a{
@@ -110,7 +110,7 @@ footer {
     display: inline-block;
 }
 
-#buscador button, input{
+#buscador button, #buscador input{
     margin: 5px;
 }
 #contenido{
@@ -161,3 +161,34 @@ footer {
 .iconoboton{
     padding: 5px;
 }
+
+.cajabuscador{
+    border:1px solid blue;
+}
+
+.usuarios{
+   
+    border:1px solid pink;
+    
+}
+.paciente, .cabecerapaciente{
+    /*border: 1px solid purple;*/
+    margin: 2px;
+    
+}
+.cabecerapaciente{
+    border-bottom: 2px solid rgb(202, 202, 255);
+    font-weight: 500;
+}
+
+.paciente a{
+   display: inline-flex;
+   padding:0px;
+    
+}
+
+.paciente:hover{
+    background: rgb(69, 69, 199);
+    color:white;
+}
+

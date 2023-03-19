@@ -1,28 +1,102 @@
 <div class="modal" id="modalAddPatient">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Crear Usuario</h5>
+                <h5>Nuevo Paciente</h5>
             </div>
             <div class="modal-body">
                 <form action="/menu" method="POST">
                     <div class="row">
+                        <h5>Información General</h5>
+                        <br>
                         <div class="col-md-6 form-group">
+                            
                             <input type="text" class="form-control" placeholder="Nombre" name="nombre" >  
                         </div>
-                        <div class="col-md-6 form-group">
-                            <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" >
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" >
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" >
                         </div>
                     </div>
+                    <br>
                     <div class="row">
+                        <div class="col-md-3">
+                            <label class="col-form-label">Fecha de nacimiento:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" class="form-control" name="fechaNacimiento">
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="DNI / NIE" name="DNI">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="genero">
+                                <option value="0" selected disabled>Género</option>
+                                <option value="1">Mujer</option>
+                                <option value="2">Hombre</option>
+                                <option value="3">Otro</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <h5>Contacto principal</h5>
+                        <br>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="telefono" name="telefono">
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Email" name="email">
+                        </div>
+                        <!--<div class="col-md-3">
+                            <label class="col-form-label">Seleccione tipo</label>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <select class="form-select" name="contacto">
+                                <option value="1">Teléfono</option>
+                                <option value="2">Email</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="contacto">
+                        </div>-->
+
+                    </div>
+                    <!--<div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-success btn-md" >Añadir otro</button>
+                        </div>
+                        
+
+                    </div>-->
+                    <br>
+                    <div class="row">
+                        <h5>Dirección</h5>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Calle, número, portal, piso" name="direccion" >
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="text" class="form-control" placeholder="Población" name="poblacion" >
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="text" class="form-control" placeholder="Código Postal" name="cp" >
+                        </div> 
+                    </div>
+                    <br>
+                    <!--<div class="row">
                         <div class="col-md-6 form-group">
                             <input type="email" class="form-control" placeholder="Email" name="email" >
                         </div>
-                        <div class="col-md-6 form-group">
-                            <input type="text"  class="form-control" placeholder="Telefono" name="telefono">
-                        </div>
-                        
-                    </div>
+                    </div>-->
+                    <br>
                     <div id="botonesmodal from-group">
                         <button type="submit" class="btn btn-success btn-md" >Crear</button>
                         <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
