@@ -1,0 +1,68 @@
+<% telefonos.forEach(t => { %>
+<div class="modal" id="modalEditContact<%= t.id %>">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar contacto</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/pacientes/paciente/editcontact/<%= patient.id %>/<%= t.id %>" method="POST">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="col-form-label">Teléfono</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="contacto" value="<%= t.valor %>">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<% }) %>
+
+<% emails.forEach(m => { %>
+    <div class="modal" id="modalEditContact<%= m.id %>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Editar contacto</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="/pacientes/paciente/editcontact/<%= patient.id %>/<%= m.id %>" method="POST">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="col-form-label">Seleccione tipo</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="col-form-label">Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="contacto" value="<%= m.valor %>">
+                            </div>
+    
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <div id="botonesmodal from-group">
+                                <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <% }) %>

@@ -52,17 +52,15 @@
                   <div class="col">Nº Paciente</div> 
                   <div class="col">Nombre</div> 
                   <div class="col">Apellidos</div>
-                  <div class="col">Email</div>
-                  <div class="col">Telefono</div>
+                  
                 </div>
                 <% pats.forEach(paciente => { %>
                 <div class="row paciente p-2">
-                  <a href="pacientes/<%= paciente.id  %>">
+                  <a href="pacientes/paciente/<%= paciente.id  %>">
                     <div class="col"><%= paciente.id %></div>
                     <div class="col"><%= paciente.nombre %></div> 
-                    <div class="col"><%= paciente.apellidos %></div>
-                    <div class="col"><%= paciente.email %></div>
-                    <div class="col"><%= paciente.telefono %></div>
+                    <div class="col"><%= paciente.primerApellido %> <%= paciente.segundoApellido %></div>
+                    
                   </a>
                 </div>
                 <% }) %>
@@ -73,8 +71,7 @@
     </div>
 
 
-    <%- include('partials/modalAddPatient')%>
-    <%- include('partials/modalPresupuesto')%>
+
 
 
     

@@ -1,0 +1,46 @@
+<% histories.forEach(h => { %>
+<div class="modal" id="modalEditHistory<%= h.id %>">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Historia</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/pacientes/paciente/edithistory/<%= patient.id %>/<%= h.id %>" method="POST">
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            <input type="date" class="form-control" name="fechaHistoria" id="fechaHistoria"
+                            value="<%= (h.fechaHistoria).getFullYear() %>-<%let mes=(h.fechaHistoria).getMonth()+1; mes="0"+mes; let dia=(h.fechaHistoria).getDate(); dia="0"+dia; %><%= mes.slice(-2) %>-<%= dia.slice(-2) %>">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="time" class="form-control" name="horaHistoria" id="horaHistoria" value="<%= h.horaHistoria %>">
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <select class="form-select" name="tipoHistoria">
+                                <option value="0" disabled>Tipo</option>
+                                <option value="1" <% if (h.tipo == 1){ %> selected <% } %> >Revisión</option>
+                                <option value="2" <% if (h.tipo == 2){ %> selected <% } %> >Llamada</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción de la historia" name="descripcionHistoria"><%= h.contenido %></textarea>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- fin modal-body-->
+        </div> <!-- fin modal-content-->
+    </div><!-- fin modal-dialog-->
+</div><!--fin modal-->
+<% }) %>

@@ -1,36 +1,223 @@
-<div class="">
+<div class="pestanyas">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-datos-tab" data-bs-toggle="tab" data-bs-target="#nav-datos" type="button" role="tab" aria-controls="nav-datos" aria-selected="true">Datos</button>
-          <button class="nav-link" id="nav-historial-tab" data-bs-toggle="tab" data-bs-target="#nav-historial" type="button" role="tab" aria-controls="nav-historial" aria-selected="false">Historial</button>
-          <button class="nav-link" id="nav-ventas-tab" data-bs-toggle="tab" data-bs-target="#nav-ventas" type="button" role="tab" aria-controls="nav-ventas" aria-selected="false">Ventas</button>
-          <button class="nav-link" id="nav-presupuestos-tab" data-bs-toggle="tab" data-bs-target="#nav-presupuestos" type="button" role="tab" aria-controls="nav-presupuestos" aria-selected="false" >Presupuestos</button>
+            <button class="nav-link <% if (tipo == 0) { %> active <% } %>" id="nav-datos-tab" data-bs-toggle="tab" data-bs-target="#nav-datos"
+                type="button" role="tab" aria-controls="nav-datos" aria-selected="true">Datos</button>
+            <button class="nav-link <% if (tipo == 1) { %> active <% } %>" id="nav-historial-tab" data-bs-toggle="tab" data-bs-target="#nav-historial"
+                type="button" role="tab" aria-controls="nav-historial" aria-selected="false">Historial</button>
+            <button class="nav-link" id="nav-ventas-tab" data-bs-toggle="tab" data-bs-target="#nav-ventas" type="button"
+                role="tab" aria-controls="nav-ventas" aria-selected="false">Ventas</button>
+            <button class="nav-link" id="nav-presupuestos-tab" data-bs-toggle="tab" data-bs-target="#nav-presupuestos"
+                type="button" role="tab" aria-controls="nav-presupuestos" aria-selected="false">Presupuestos</button>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab" tabindex="0">
-            <h3>Datos</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium aspernatur reiciendis?Suscipit fugit quidem eligendi deleniti!
-            </p>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade <% if (tipo == 0) { %> show active <% } %>" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab" tabindex="0">
+            <br>
+            <div class="container">
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            
+                            <div class="card  mb-3">
+                                <div class="card-header">
+                                    <h5>Datos Principales</h5>
+                                  </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Nombre</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= patient.nombre %> <%= patient.primerApellido %> <%= patient.segundoApellido %>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Direccion</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= patient.direccion %>, <%= patient.poblacion %>, <%= patient.cp %>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">F. Nacimiento</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= (patient.fechaNacimiento).toLocaleDateString() %>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">DNI</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= patient.DNI %>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Género</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= genero %>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddContact" href="#modalAddContact">Editar</a>
+                                        </div>
+                                    </div>
+                                </div><!--cierre card body-->
+                            </div><!--cierre tarjeta-->
+                        </div><!--cierre primera columna-->
+                        <div class="col-md-6">
+                            <div class="card  mb-3">
+                                <div class="card-header">
+                                    <h5>Contacto</h5>
+                                  </div>
+                                <div class="card-body">
+                                    <!--<div class="row">
+                                        <h6 class="card-subtitle mb-2 text-muted">Teléfonos</h6>
+                                    </div>-->
+                                    <% telefonos.forEach(t => { %>
+                                        <div class="row">
+                                            <!--<div class="col-sm-3">
+                                                <h6 class="mb-0">Teléfono</h6>
+                                            </div>-->
+                                            <div class="col-sm-6 text-secondary">
+                                                <i class="fas fa-phone"></i> <%= t.valor %>
+                                            </div>
+                                            <div class="col-sm-3 text-secondary">
+                                                Comentario
+                                            </div>
+                                            <div class="col-sm-3 text-end">
+                                                <a data-bs-toggle="modal" data-bs-target="#modalEditContact<%= t.id %>" href="#modalEditContact<%= t.id %>"><i class="fas fa-pen"></i></a>
+                                                <a href="/pacientes/paciente/deletecontact/<%= patient.id %>/<%= t.id %>"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    <% }) %>
+
+                                    <!--<div class="row">
+                                        <h6 class="card-subtitle mb-2 text-muted">Emails</h6>
+                                    </div>-->
+                                    <% emails.forEach(m => { %>
+                                        <div class="row">
+                                            <!--<div class="col-sm-3">
+                                                <h6 class="mb-0">Email</h6>
+                                            </div>-->
+                                            <div class="col-sm-6 text-secondary">
+                                                <i class="fas fa-envelope"></i> <%= m.valor %>
+                                            </div>
+                                            <div class="col-sm-3 text-secondary">
+                                                Comentario
+                                            </div>
+                                            <div class="col-sm-3 text-end">
+                                                <a data-bs-toggle="modal" data-bs-target="#modalEditContact<%= m.id %>" href="#modalEditContact<%= m.id %>"><i class="fas fa-pen"></i></a>
+                                                <a href="/pacientes/paciente/deletecontact/<%= patient.id %>/<%= m.id %>"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    <% }) %>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddContact" href="#modalAddContact">Añadir</a>
+                                        </div>
+                                    </div>
+                                
+                                </div><!-- cierre card body-->
+                            </div><!--cierre tarjeta-->
+                            <div class="card  mb-3">
+                                <div class="card-header">
+                                    <h5>Comentarios</h5>
+                                </div>
+                                <div class="card-body">
+                                    <%= tipo %>
+                                </div>
+                            </div>
+
+                        </div><!--Cierra segunda columna-->
+                    </div> <!-- cierre fila -->
+                </div> <!-- cierre main-body-->
+
+            </div> <!--cierre container-->
+
+        </div> <!-- cierre tab Datos-->
+
+        <!-- PANEL DE HISTORIAL-->
+        <div class="tab-pane fade <% if (tipo == 1) { %> show active <% } %>" id="nav-historial" role="tabpanel" aria-labelledby="nav-historial-tab" tabindex="0">
+            
+            <br>
+            
+            <div class="main-body m-2">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddHistory" href="#modalAddHistory">Añadir historia</a>
+                    </div>
+                </div> <!-- fin fila-->
+                
+            </div> <!-- fin main-body-->
+            <div class="container">
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <% histories.forEach(h => { %>
+                            <div class="card  mb-12">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <i class="fas <% if (h.tipo == 1) { %> fa-glasses <% } else{ %> fa-phone <% } %>"></i>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h7> <%= (h.fechaHistoria).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %> - <%= h.horaHistoria %></h7>
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-5 text-end">
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditHistory<%= h.id %>" href="#modalEditHistory<%= h.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/pacientes/paciente/deletehistory/<%= patient.id %>/<%= h.id %>"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <%= h.contenido %>
+                                    </div>   
+                                </div><!-- fin card-body-->    
+                            </div> <!--fin tarjeta-->
+                            <% }) %>
+                        </div><!-- fin columna tarjeta-->
+                    </div>
+                </div>
+            </div> <!-- fin container-->    
         </div>
-        <div class="tab-pane fade" id="nav-historial" role="tabpanel" aria-labelledby="nav-historial-tab" tabindex="0">
-            <h3>Historial</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium aspernatur reiciendis?Suscipit fugit quidem eligendi deleniti!
-            </p>
-        </div>
+        <!-- FIN PANEL DE HISTORIAL-->
         <div class="tab-pane fade" id="nav-ventas" role="tabpanel" aria-labelledby="nav-ventas-tab" tabindex="0">
             <h3>Ventas</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium aspernatur reiciendis?
+                Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium
+                aspernatur reiciendis?
                 Suscipit fugit quidem eligendi deleniti!
             </p>
         </div>
         <div class="tab-pane fade" id="nav-presupuestos" role="tabpanel" aria-labelledby="nav-presupuestos-tab" tabindex="0">
             <h3>Presupuestos</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium aspernatur reiciendis?
+                Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium
+                aspernatur reiciendis?
                 Suscipit fugit quidem eligendi deleniti!
             </p>
         </div>
-      </div>
+</div>
 </div>

@@ -8,6 +8,8 @@ router.get('/contact',(req,res)=>res.render('contact'))
 router.get('/about',(req,res)=>res.render('about'))
 router.get('/menu',(req,res)=>res.render('menu'))
 router.get('/formulario',(req,res)=>res.render('formulario'))
+router.get('/productos',(req,res)=>res.render('productos'))
+//router.get('/paciente', (req,res)=> res.render('paciente'))
 
 
 router.post('/menu',async (req, res) => {
@@ -66,7 +68,7 @@ router.post('/menu',async (req, res) => {
   })  
   
   
-  res.send('Paciente insertado')
+  //res.send('Paciente insertado')
   
     
   });
@@ -84,6 +86,7 @@ router.post('/menu',async (req, res) => {
     res.send('Recibido formulario')
     
   });
+
 
 const pool=require('../database')
 module.exports =  router
