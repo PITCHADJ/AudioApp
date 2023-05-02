@@ -1,0 +1,148 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-12">
+                            <div class="card-header">
+                                <h5>Tipo de producto</h5>
+                            </div>
+                            <div class="card-body">
+                                <% types.forEach(t => { %>
+                                <div class="row">
+                                    <div class="col-sm-9 text-secondary">
+                                        <%= t.valor %>
+                                    </div>
+                                </div>
+                                <hr>
+                                <% }) %>
+                                <% usertypes.forEach(ut => { %>
+                                    <div class="row">
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= ut.valor %>
+                                        </div>
+                                        <div class="col-sm-3 text-end">
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditProductType<%= ut.id %>" href="#modalEditProductType<%= ut.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/administracion/stock/deleteProductType/<%= ut.id %>"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <% }) %>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddProductType" href="#modalAddProductType">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-12">
+                            <div class="card-header">
+                                <h5>Tipo de IVA</h5>
+                            </div>
+                            <div class="card-body">
+                            
+                                <div class="row">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">%IVA</th>
+                                            <th scope="col"></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% ivablock.forEach(i => { %>
+                                                <tr>
+                                                    <td ><%= i.nombre %></td>
+                                                    <td><%= i.valor %></td>
+                                                    <td></td>
+                                                </tr>
+                                            
+                                            <% }) %>
+                                            <% ivauser.forEach(i => { %>
+                                                <tr>
+                                                    <td ><%= i.nombre %></td>
+                                                    <td><%= i.valor %></td>
+                                                    <td>
+                                                        <a data-bs-toggle="modal" data-bs-target="#modalEditIVAType<%= i.id %>" href="#modalEditIVAType<%= i.id %>"><i class="fas fa-pen"></i></a>
+                                                        <a href="/administracion/stock/deleteIVAType/<%= i.id %>"><i class="fas fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddIVAType" href="#modalAddIVAType">Añadir</a>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            
+            <div class="col-md-9">
+                <div class="card  mb-3">
+                    <div class="card-header">
+                        <h5>Empresas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Compañía</th>
+                                    <th scope="col">CIF</th>
+                                    <th class="text-center" scope="col">Proovedor</th>
+                                    <th class="text-center" scope="col">Marca</th>
+                                    <th class="text-center" scope="col">Reparación</th>
+                                    <th class="text-center" scope="col">Facturación</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% companies.forEach(cmp => { %> 
+                                  <tr>
+                                    <th scope="row"><%= cmp.company %></th>
+                                    <td><%= cmp.cif %></td>
+                                    <td class="text-center"><i class="fa <% if (cmp.ambp == 1) { %> fa-circle-check ok <% } else { %>fa-circle-xmark nok <% } %> "></i></td>
+                                    <td class="text-center"><i class="fa <% if (cmp.ambm == 1) { %> fa-circle-check ok <% } else { %>fa-circle-xmark nok <% } %> "></i></td>
+                                    <td class="text-center"><i class="fa <% if (cmp.ambr == 1) { %> fa-circle-check ok <% } else { %>fa-circle-xmark nok <% } %> "></i></td>
+                                    <td class="text-center"><i class="fa <% if (cmp.ambf == 1) { %> fa-circle-check ok <% } else { %>fa-circle-xmark nok <% } %> "></i></td>
+                                    <td class="text-end">
+                                        <a href="/administracion/stock/viewCompany/<%= cmp.id %>"><i class="fas fa-eye"></i></a>
+                                        <a data-bs-toggle="modal" data-bs-target="#modalEditCompany<%= cmp.id %>" href="#modalEditCompany<%= cmp.id %>"><i class="fas fa-pen"></i></a>
+                                        <a href="/administracion/stock/deleteCompany/<%= cmp.id %>"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                  </tr>
+                                  <% }) %> 
+                                  
+                                </tbody>
+                              </table>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddCompany" href="#modalAddCompany">Añadir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>

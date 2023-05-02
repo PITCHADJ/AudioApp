@@ -1,0 +1,71 @@
+<% companies.forEach(cmp => { %>
+<div class="modal" id="modalEditCompany<%= cmp.id %>">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Empresa</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/administracion/stock/editCompany/<%= cmp.id %>" method="POST">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" id="company" name="company" class="form-control" placeholder="Compañía" value="<%= cmp.company %>">  
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="CIF" name="CIF" class="form-control" placeholder="CIF" value="<%= cmp.cif %>">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="email" id="correo" name="correo" class="form-control" placeholder="Email" value="<%= cmp.correo %>">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Teléfono" value="<%= cmp.telefono %>">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <textarea class="form-control" rows="2" placeholder="Observaciones de la compañía" name="Observaciones"><%= cmp.observaciones %></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Seleccione ámbito:</label>
+                            <br>
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="ambp" name="ambp" <% if (cmp.ambp == 1) { %>checked <% } %>>
+                                <label class="form-check-label" for="ambp">Proveedor</label>
+                            </div>
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="ambm" name="ambm" <% if (cmp.ambm == 1) { %>checked <% } %>>
+                                <label class="form-check-label" for="ambm">Marca</label>
+                            </div>
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="ambr" name="ambr" <% if (cmp.ambr == 1) { %>checked <% } %>>
+                                <label class="form-check-label" for="ambr">Reparación</label>
+                            </div>
+                            <div class="form-check form-switch form-check-inline"> 
+                                <input class="form-check-input form-control" type="checkbox" id="ambf" name="ambf" <% if (cmp.ambf == 1) { %>checked <% } %>>
+                                <label class="form-check-label" for="ambf">Facturación</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+</div>
+<% }) %>

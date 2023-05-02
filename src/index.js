@@ -26,6 +26,9 @@ app.set('view engine','ejs');
 app.use(require('./routes/routes'));
 app.use(require('./routes/authentication'));
 app.use('/pacientes',require('./routes/patients'));
+app.use('/administracion',require('./routes/administration'));
+app.use('/productos',require('./routes/products'));
+app.use('/pedidos',require('./routes/orders'));
 
 //public
 app.use(express.static(path.join(__dirname,'public')));

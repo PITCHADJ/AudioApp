@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddProduct"><i class="fas fa-box iconoboton"></i>Nuevo Producto</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <h5>Productos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <% if (products.length != 0) {%> 
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col"><a href="#">Nombre</a></th>
+                                        <th scope="col"><a href="#">Precio Compra</a></th>
+                                        <th scope="col"><a href="#">PVP</a></th>
+                                        <th scope="col"><a href="#">IVA</a></th>
+                                        <th scope="col"><a href="#">Cantidad</a></th>
+                                        <th scope="col"><a href="#">Estado</a></th>
+                                        <th scope="col"><a href="#">Proveedor</a></th>
+                                        <th scope="col"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% products.forEach(p => { %> 
+                                      <tr>
+                                        <td ><%= p.nombre %></th>
+                                        <td ><%= (p.precioCompra).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></th>
+                                        <td ><%= (p.precioVenta).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></th>   
+                                        <td ><%= p.tipoIVA %></th>   
+                                        <td ><%= p.cantidad %></th>
+                                        <td ><% if (p.cantidad > 0) { %>Disponible <% } else {%>Agotado <% } %></th>
+                                        <td ><%= p.proveedor %></th>    
+                                         
+                                        <td class="text-end">
+                                            <a href="/administracion/stock/viewCompany/<%= p.id %>"><i class="fas fa-eye"></i></a>
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditCompany<%= p.id %>" href="#modalEditCompany<%= p.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/administracion/stock/deleteCompany/<%= p.id %>"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                      </tr>
+                                      <% }) %> 
+                                      
+                                    </tbody>
+                                </table>
+                            
+                            <% } %>
+                        </div>
+                    </div>
+                </div>        
+
+            </div>
+        </div>
+    </div>
+</div>

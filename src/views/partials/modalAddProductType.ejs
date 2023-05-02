@@ -1,0 +1,27 @@
+<div class="modal" id="modalAddProductType">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nuevo tipo de Producto</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/administracion/stock/addProductType" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="tipoProducto" placeholder="Nuevo tipo de producto">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

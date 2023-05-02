@@ -6,35 +6,14 @@ const router=express.Router()
 router.get('/',(req,res)=>res.render('index'))
 router.get('/contact',(req,res)=>res.render('contact'))
 router.get('/about',(req,res)=>res.render('about'))
-router.get('/menu',(req,res)=>res.render('menu'))
 router.get('/formulario',(req,res)=>res.render('formulario'))
-router.get('/productos',(req,res)=>res.render('productos'))
-//router.get('/paciente', (req,res)=> res.render('paciente'))
+
 
 
 router.post('/menu',async (req, res) => {
   console.log (req.body)
   const paciente = req.body
-  /*const {nombre, apellidos, email, telefono} = req.body;
-  const newAd ={
-    nombre,
-    apellidos,
-    email,
-    telefono
-  };
-  console.log(newAd)
-  await pool.query('INSERT INTO patient SET ?',[newAd], function(err, result, fields) {
-    if (err) {
-        
-        console.log('Error al insertar paciente')
-      }else{
-          
-        console.log(result.insertId);
-        res.redirect('pacientes')
-        //res.send('Recibido modal paciente')
-      }
-  })*/
-  
+ 
   const datos={
     nombre: paciente.nombre,
     primerApellido: paciente.primerApellido,

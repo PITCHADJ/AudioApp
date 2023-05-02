@@ -12,3 +12,18 @@ $('#modalAddHistory').on('shown.bs.modal', function (e) {
     $('#horaHistoria').val(hora+":"+min)
    //alert(hora+"-"+min)
 })
+
+$('input:checkbox[name="ns"]').change(
+   function(){
+      //alert(this.checked)
+      
+       if (this.checked ) {
+            var n=$( '#cantidad' ).val();
+            alert(n)
+           // note that, as per comments, the 'changed'
+           // <input> will *always* be checked, as the change
+           // event only fires on checking an <input>, not
+           // on un-checking it.
+           // append goes here
+       }
+   });

@@ -1,0 +1,31 @@
+<% usertypes.forEach(ut => { %>
+    <div class="modal" id="modalEditProductType<%= ut.id %>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Editar tipo de producto</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="/administracion/stock/editProductType/<%= ut.id %>" method="POST">
+                        <div class="row">
+                            
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="tipoProducto" value="<%= ut.valor %>">
+                                
+                            </div>
+    
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <div id="botonesmodal from-group">
+                                <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <% }) %>

@@ -1,41 +1,126 @@
 <div class="modal" id="modalAddProduct">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Crear Usuario</h5>
+                <h5>Nuevo Producto</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control">  
+                <form action="/productos/stock/addProduct" method="POST">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre del Producto">  
+                        </div>
+                        
                     </div>
-                    <div class="col-md-6">
-                        <label for="nombre">Apellidos:</label>
-                        <input type="text" id="apellidos" name="apellidos" class="form-control">
-                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Precio de compra</label>
+                            <input type="number" id="precioCompra" name="precioCompra" class="form-control" value="0.00" step="0.01" min="0.00">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Precio de venta</label>
+                            <input type="number" id="precioVenta" name="precioVenta" class="form-control" value="0.00" step="0.01" min="0.00">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Tipo de IVA</label>
+                            <select class="form-select" name="tipoIVA">
+                                <% ivablock.forEach(i => {%>
+                                    <option value="<%= i.id %>"><%= i.nombre %> - <%= i.valor %>% </option>
+                                <% }) %>
+                                <% ivauser.forEach(i => {%>
+                                    <option value="<%= i.id %>"><%= i.nombre %> - <%= i.valor %>% </option>
+                                <% }) %>
 
-                    
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="correo">Correo electrónico:</label>
-                        <input type="email" id="correo" name="correo" class="form-control">
+                            </select>    
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="nombre">Telefono:</label>
-                        <input type="text" id="telefono" name="telefono" class="form-control">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-select" name="tipo">
+                                <option value="0" selected disabled>Tipo Producto</option>
+                                <% tipoblock.forEach(tb => {%> 
+                                <option value="<%= tb.id %>"><%= tb.valor %></option>
+                                <% }) %>
+                                <% tipouser.forEach(tu => {%> 
+                                    <option value="<%= tu.id %>"><%= tu.valor %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="referencia" name="referencia" class="form-control" placeholder="Referencia">
+                        </div>
                     </div>
-                </div>
-                
-                  
-                  
-                  
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" min="0">
+                        </div>
+                        <div class="col-md-6 spanModal">
+                            <input type="number" id="cantidadminima" name="cantidadminima" class="form-control" placeholder="Cantidad Mínima" min="0">
+                            <span>0 unidades no se considerará stock crítico</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <textarea class="form-control" rows="2" placeholder="Descripción del producto" name="descripcion"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Marca</label>
+                            <select class="form-select" name="marca">
+                                <option value="0" selected>Sin Marca</option>
+                                <% marcas.forEach(m => {%> 
+                                <option value="<%= m.id %>"><%= m.company %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <label>Proveedor</label>
+                            <select class="form-select" name="proveedor">
+                                <option value="0" selected disabled>Seleccione proveedor</option>
+                                <% proveedores.forEach(p => {%> 
+                                <option value="<%= p.id %>"><%= p.company %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="reparable" name="reparable">
+                                <label class="form-check-label" for="reparable">Reparable</label>
+                            </div>
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="ns" name="ns">
+                                <label class="form-check-label" for="ns">Producto con número de serie</label>
+                            </div>
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="recurrente" name="recurrente">
+                                <label class="form-check-label" for="recurrente">Añadir como producto recurrente</label>
+                                <div class="tooltip"><i class="fa fa-circle-info"></i><span class="tooltiptext">Cuando la cantidad de producto se encuentre por debajo de la cantidad mínima, se preparará automáticamente pedido, a falta de ser confirmado.</span></div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md">Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>     
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-md">Crear</button>
-                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
-            </div>
+            
         </div>
     </div>    
 </div>

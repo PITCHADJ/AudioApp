@@ -1,0 +1,77 @@
+<div class="modal" id="modalEditPatient">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Paciente</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/pacientes/paciente/edit/<%= patient.id %>" method="POST">
+                    <div class="row">
+                        <h5>Información General</h5>
+                        <br>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="<%= patient.nombre %>" >  
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" value="<%= patient.primerApellido %>">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" value="<%= patient.segundoApellido %>">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="col-form-label">Fecha de nacimiento:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" class="form-control" name="fechaNacimiento"
+                            value="<%= (patient.fechaNacimiento).getFullYear() %>-<%let mes=(patient.fechaNacimiento).getMonth()+1; mes="0"+mes; let dia=(patient.fechaNacimiento).getDate(); dia="0"+dia; %><%= mes.slice(-2) %>-<%= dia.slice(-2) %>">
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="DNI / NIE" name="DNI" value="<%= patient.DNI %>">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="genero">
+                                <option value="0" disabled>Género</option>
+                                <option value="1" <% if (patient.genero == 1){ %>selected <% } %>>Mujer</option>
+                                <option value="2" <% if (patient.genero == 2){ %>selected <% } %>>Hombre</option>
+                                <option value="3" <% if (patient.genero == 2){ %>selected <% } %>>Otro</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <br>
+                                   
+                    <div class="row">
+                        <h5>Dirección</h5>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Calle, número, portal, piso" name="direccion" value="<%= patient.direccion %>">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="text" class="form-control" placeholder="Población" name="poblacion" value="<%= patient.poblacion %>">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="text" class="form-control" placeholder="Código Postal" name="cp" value="<%= patient.cp %>">
+                        </div> 
+                    </div>
+                    <br>
+                    
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+
+                </form>
+                
+            </div>
+            
+        </div>
+    </div>    
+</div>

@@ -1,0 +1,36 @@
+<% ivauser.forEach(i => { %>
+    <div class="modal" id="modalEditIVAType<%= i.id %>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Editar tipo de IVA</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="/administracion/stock/editIVAType/<%= i.id %>" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nombre de IVA</label>
+                                <input type="text" class="form-control" name="nombreIVA" placeholder="Nuevo nombre de IVA" value="<%= i.nombre %>">
+                            </div>
+                            <div class="col-md-6">
+                                <label>% de IVA</label>
+                                <input type="number" class="form-control" name="valorIVA" value="<%= i.valor %>" step="1" >
+                                <span class="spanModal">Sólo se permiten valores enteros</span>
+                                
+                            </div>
+    
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <div id="botonesmodal from-group">
+                                <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <% }) %>

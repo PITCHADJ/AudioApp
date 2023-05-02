@@ -74,8 +74,6 @@ footer {
 
 }
 
-
-
 #leftmenu ul ul a{
     padding-left: 30px ;
     font-size: 14px ;
@@ -115,15 +113,15 @@ footer {
 }
 #contenido{
     
-    margin-top: 80px ;
-    border: 2px solid red;
+    margin-top: 100px ;
+    /*border: 2px solid red;*/
 }
 
 #botones{
     background: white;
     position: fixed;
     width: -webkit-fill-available;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
 }
 #right{
     left: 220px;
@@ -162,7 +160,7 @@ footer {
     padding: 5px;
 }
 
-.cajabuscador{
+/*.cajabuscador{
     border:1px solid blue;
 }
 
@@ -170,7 +168,7 @@ footer {
    
     border:1px solid pink;
     
-}
+}*/
 .paciente, .cabecerapaciente{
     /*border: 1px solid purple;*/
     margin: 2px;
@@ -191,11 +189,49 @@ footer {
     background: rgb(69, 69, 199);
     color:white;
 }
+#borrarcomentario{
+    color: white;
+}
 
 
+.ok {
+    color: rgb(132, 211, 14);
+}
+
+.nok {
+    color: red;
+}
+
+.spanModal{
+    font-size:x-small;
+}
 
 
-
+.tooltip {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+    --bs-tooltip-arrow-height:0px;
+  }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
 
 
 
