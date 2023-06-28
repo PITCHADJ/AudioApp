@@ -1,0 +1,60 @@
+<% if (order.estado==1){%>
+<div class="modal" id="modalAddProductOrder">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Añadir Producto</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/pedidos/pedido/addproduct/<%= order.id %>" method="POST">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="wrapper">
+                                <label>Seleccione producto</label>
+                                <div class="search-input  buscadorEditar">
+                                    
+                                    <input class="form-control" type="text" name="productoSeleccionado" id="productoSeleccionado" hidden>
+                                    <input type="text" placeholder="Escribe para buscar.." id="buscadorProductos" required>
+                                    <ul class="autocom-box" id="product-list-edit">
+                                        
+
+                                    </ul>
+                                    <div class="icon"><i class="fas fa-search"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Cantidad</label>
+                            <input type="number" id="cantidad" name="cantidad" class="form-control" value="0" step="1" min="0" required>
+                        </div>
+                            
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <label>Comentario</label>
+                            <input class="form-control" type="text" placeholder="Comentario" name="comentarioPedido" id="comentarioPedido" >
+
+                        </div>
+                     </div>
+
+                        
+                        
+                        
+                    </div>
+                    <br>
+                    <div class="row">
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Añadir</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- fin modal-body-->
+        </div> <!-- fin modal-content-->
+    </div><!-- fin modal-dialog-->
+</div><!--fin modal-->
+<% } %>

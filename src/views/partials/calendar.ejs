@@ -1,0 +1,136 @@
+<script type='text/javascript'>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            height: 750,
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'timeGridWeek,timeGridDay', // user can switch between the two,
+            },
+            views: {
+                timeGridWeek: {
+                    type: 'timeGrid',
+                    slotMinTime: "08:30:00",
+                    slotMaxTime: "22:00:00",
+                    allDaySlot: false
+                },
+                timeGridDay: {
+                    type: 'timeGrid',
+                    slotMinTime: "08:30:00",
+                    slotMaxTime: "22:00:00",
+                    allDaySlot: false
+                }             
+            },
+            timeZone: 'UTC',
+            locale: 'esLocale',
+            firstDay: 1,
+            events: JSON.parse('<%- JSON.stringify(evnts) %>')/*[
+                    {
+                    id: 'a',
+                    title: 'my event',
+                    description: "Primera revisión",
+                    start: '2023-05-06T10:30:00.000Z',
+                    end: '2023-05-06T12:30:00.000Z',
+                    editable: true,
+                    url: '#modalEditEvent',
+                    backgroundColor: 'red'
+                    },
+                    {
+                    id: 'b',
+                    title: 'my event 2 \
+                            hola segunda linea',
+                    description: "Primera revisión",
+                    start: '2023-05-06T10:30:00.000Z',
+                    end: '2023-05-06T12:30:00.000Z',
+                    editable: true,
+                    
+                    
+                    }
+                ]*/,
+                eventContent:  function(arg) {
+                    console.log(arg)
+                    let ht=`<div ><i class="fa-regular fa-clock iconoEvento"></i>${arg.timeText}</div>`
+                    ht+=`<div ><i class="fa-solid fa-hospital-user iconoEvento"></i>${arg.event.title}</div>`
+                    ht+=`<div ><i class="fa-solid fa-user-doctor iconoEvento"></i>${arg.event.extendedProps.doctor}</div>`                    
+                    return { html: ht }
+                    },
+                eventClick: function (info) {
+                    let idpac = (info.event.extendedProps.idpac).toString()
+                    let idWorker = (info.event.extendedProps.idWorker).toString()
+                    let tipo = (info.event.extendedProps.tipo).toString()
+                    
+                    $('#pacienteEditEvent option').filter(function () {
+                        return this.value === idpac
+                    }).prop('selected', true);
+
+                    $('#atiendeEditEvent option').filter(function () {
+                        return this.value === idWorker
+                    }).prop('selected', true);
+
+                    $('#tipoCitaEdit option').filter(function () {
+                        return this.value === tipo
+                    }).prop('selected', true);
+
+                    var month = ("0" + (info.event.start.getMonth() + 1)).slice(-2);
+                    var day = ("0" + info.event.start.getDate()).slice(-2);
+                    var date = info.event.start.getFullYear() + "-" + (month) + "-" + (day);
+                    $('#fechaEditEvent').val(date);
+
+
+                    var offset = new Date().getTimezoneOffset();
+
+                    var horaini = (info.event.start.getTime() + offset * 60 * 1000)
+                    var iniDate = new Date(horaini)
+
+                    var hora = ("0" + iniDate.getHours()).slice(-2)
+                    var min = ("0" + iniDate.getMinutes()).slice(-2)
+                    $('#horaInicioEditEvent').val(hora + ":" + min)
+
+                    var horafin = (info.event.end.getTime() + offset * 60 * 1000)
+                    var endDate = new Date(horafin)
+
+                    var hora = ("0" + endDate.getHours()).slice(-2)
+                    var min = ("0" + endDate.getMinutes()).slice(-2)
+                    $('#horaFinEditEvent').val(hora + ":" + min)
+
+                    
+                    $('#comentarioEditEvent').val(info.event.extendedProps.description)
+                    $('#spanComentarioEditEvento').text((info.event.extendedProps.description.length) + "/100")
+                    
+                    var url = "/calendario/editEvent/" + info.event.id
+                    $('#formularioEditEvent').attr('action', url);
+                    
+                    $("#modalEditEvent").modal("show")
+                }/*,
+                        eventContent: function(arg) {
+                                return {
+                                    html: arg.event.title.replace(/\"/g, '<br>')
+                                }
+                        }*/
+        })
+        //calendar.setOption('locale', 'es');
+        calendar.render()
+        //console.log(JSON.parse('<%- JSON.stringify(evnts) %>'))
+        //let p= JSON.parse('<%- JSON.stringify(prueba) %>')
+        //alert(p)
+    });
+</script>
+
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddEvent"><i class="fas fa-calendar-plus iconoboton"></i>Nueva Cita</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

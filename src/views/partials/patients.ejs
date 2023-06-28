@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddPatient"><i class="fas fa-user-plus iconoboton"></i>Nuevo Paciente</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <div class="row">
+                            
+                            <div class="col-md-3">
+                                <h5>Pacientes</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorProductos">
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="row tablaProductos">
+                            <% if (pats.length != 0) {%> 
+                                <table class="table " data-toggle="table" data-pagination="true">
+                                    <thead class="sticky-top bg-white">
+                                      <tr>
+                                        <th scope="col"><a href="#">Nº Paciente</a></th>
+                                        <th scope="col"><a href="#">Nombre</a></th>
+                                        <th scope="col"><a href="#">Apellidos</a></th>
+                                        <th scope="col" class="tp"><a href="#">Tipo Paciente</a></th>
+                                        <!--<th scope="col"></th>-->
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tablaProductos">
+                                      <% pats.forEach(p => { %> 
+                                      <tr class='clickable-row paciente' data-href='<%= p.id %>'>
+                                        
+                                        <td ><%= p.ncliente %></td>
+                                        <td ><%= p.nombre %></td>
+                                        <td ><%= p.primerApellido %> <%= p.segundoApellido %></td>   
+                                        <td class="tp" style="background-color:<%=p.colorFondo %>; color:<%= p.colorTexto %>"><%=p.ptnombre %></td> 
+                                        
+                                                                                
+                                        <!--<td class="text-end">
+                                            <a href="/pacientes/paciente/<%= p.id %>"><i class="fas fa-eye"></i></a>
+                                            <a href="/pacientes/paciente/<%= p.id %>"><i class="fas fa-trash"></i></a>
+                                        </td>-->
+                                      </tr>
+                                      <% }) %> 
+                                      
+                                    </tbody>
+                                </table>
+                            
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="modal" id="modalAddOrder">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nuevo Pedido</h5>
+            </div>
+            <div class="modal-body">
+                <% if (tipop == 0) { %>
+                    <form action="/pacientes/paciente/pedido/add/<%= patient.id %>" method="POST">
+                <% } else {%>
+                <form action="/pedidos/add" method="POST">
+                <% } %>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radio1" id="radioEmpresa" value="empresa" <% if (tipop == 0) { %> disabled <%}else{%>checked<%}%>>
+                                <label class="form-check-label">
+                                Pedido para Stock
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radio1" id="radioPaciente" value="paciente" <% if (tipop == 0) { %> checked disabled <%}%> >
+                                <label class="form-check-label">
+                                Pedido Paciente
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-9" id="selectPacienteOrder" >
+                            <label >Paciente</label>
+                            <% if (tipop == 0) { %>
+                                <input type="text" class="form-control" name="paciente" value="<%= patient.nombre %> <%=patient.primerApellido%> <%=patient.segundoApellido %>" disabled>
+                            <% } else {%>
+                                <select class="form-select" name="paciente" >
+                                    <option value="0" selected disabled>Seleccione paciente</option>
+                                    <% pacientes.forEach(p => {%>
+                                        <option value="<%= p.id %>"><%= p.nombre %> <%= p.primerApellido %> <%= p.segundoApellido %> </option>
+                                    <% }) %>
+
+                                </select>
+                            <%}%>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-select" name="company" required >
+                                <option value="" selected disabled>Seleccione Proveedor</option>
+                                <% companies.forEach(cmp => {%>
+                                <option value="<%= cmp.id %>"><%= cmp.company %></option>
+                                <% }) %>
+                            </select>
+                            
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Referencia Pedido" name="refOrder">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

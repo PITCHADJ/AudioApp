@@ -1,0 +1,112 @@
+<script>
+    let products='<%- JSON.stringify(products) %>'
+    let total=JSON.parse('<%- JSON.stringify(total) %>')
+    
+    
+</script>
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <button class="btn btn-info" onclick="history.back()"><i class="fa fa-rotate-left iconoboton"></i>Atrás</button>
+                </div>
+                
+                <br>
+                <div class="card  mb-12 ">
+                    
+                    <div class="card-header">
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5><%= order.paciente %></h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Proveedor: <%= order.company %></h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Ref:<%= order.referencia %> </h5>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="/pedidos/delete/<%= order.id %>"><i class="fas fa-trash" title="Eliminar"></i></a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <form action="/pedidos/save/<%= order.id %> " method="POST">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Elementos</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" name="estado" id="estado" required>
+                                        <option value="" selected disabled>Seleccione estado</option>
+                                        <% estados.forEach(es => { %> 
+                                            <option value="<%=es.id %>" <% if(order.estado==es.id){ %> selected <%}%> ><%=es.nombre%></option> 
+                                        <% }) %>  
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12"  id="elementosPedido">
+                                    <% let t=1 %>
+                                    <% productsOrder.forEach(p => { %> 
+                                        <div class="row" id="fila<%= t %>">
+                                            <div class="col-md-5">
+                                                <select class="form-select" name="producto" id="selectProducto" required>
+                                                    <option value="" selected disabled>Seleccione producto</option>
+                                                    
+                                                    <% products.forEach(pro => { %> 
+                                                        <option value="<%=pro.id %>" <% if(p.idProd==pro.id){ %> selected <%}%> ><%=pro.nombre%> - <%=(pro.precioVenta).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></option> 
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control" placeholder="Cantidad" name="cantidad" value="<%= p.cantidad %>" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" placeholder="Comentario" name="comentario" value="<%= p.comentario %>">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="#" onClick="deleteFila(<%= t %>)"><i class="fas fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <br id="br<%= t %>">
+                                    <% t+=1 }) %>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-info" id="botonAnyadirElemento"><i class="fa fa-plus"></i>Añadir Elemento</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div id="botonesmodal from-group">
+                                    <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>          
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

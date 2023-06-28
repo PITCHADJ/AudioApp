@@ -3,7 +3,7 @@ img {
     display: block;
     margin: 0 auto;
 }
-/* Estilo para poner el fondo en negro */
+/* Estilo para poner el fondo en blanco */
 body {
     background-color: white;
     
@@ -142,10 +142,11 @@ footer {
     position: absolute;
     width: 100%;
     bottom: 20px;
+    padding: 10px;
 }
-#cierre a{
+/*#cierre a{
     padding: 20px;
-}
+}*/
 
 #cierre a i{
     padding: 5px;
@@ -188,6 +189,7 @@ footer {
 .paciente:hover{
     background: rgb(69, 69, 199);
     color:white;
+    cursor:pointer;
 }
 #borrarcomentario{
     color: white;
@@ -201,7 +203,16 @@ footer {
 .nok {
     color: red;
 }
+.war {
+    color: orange;
+}
 
+.enviado{
+    color:rgb(37, 204, 255);
+}
+.salvar{
+    font-size: x-large;
+}
 .spanModal{
     font-size:x-small;
 }
@@ -213,7 +224,7 @@ footer {
     opacity: 1;
     --bs-tooltip-arrow-height:0px;
   }
-  .tooltip .tooltiptext {
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: black;
@@ -249,4 +260,109 @@ footer {
 }
 .me-2 {
     margin-right: .5rem!important;
+}
+
+.wrapper{
+    max-width: 450px;
+    
+}
+
+.wrapper .search-input{
+    position: relative;
+    background: white;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12) ;
+}
+
+
+.search-input input{
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12);
+
+}
+.search-input input:focus{
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+
+}
+.search-input .icon{
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  position:absolute;
+  top:0;
+  right:0;
+  text-align: center;
+  cursor:pointer;  
+}
+.search-input .autocom-box{
+    /*padding: 10px 8px;*/
+    max-height: 150px;
+    overflow-y: auto;
+    list-style: none;
+    padding-left: 10px;
+    /*opacity: 0;
+    pointer-events: none;*/
+}
+
+
+.autocom-box li{
+    
+    padding-top: 4px;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+   /* display: none;*/
+}
+
+.autocom-box li:hover{
+    background:rgba(146, 195, 235, 0.1);
+
+}
+
+.descuento{
+    margin-bottom: 0px;
+}
+
+.tipoColor{
+    height: 40px;
+}
+
+.tablaProductos, .tablaVentas, .tablaPresupuestos, .tablaPedidos{
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.tp{
+    width: 120px;
+}
+.ptp{
+    padding:3px;
+}
+
+.colorCita{
+    height: 20px;
+}
+
+.iconoEvento{
+    padding: 2px;
+}
+
+.imageProfile{
+    max-width: 35px;
+    border-radius: 50%;
+}
+
+.imagenCompany{
+    max-width: 150px;
+}
+
+.botonventas{
+    color: white;
 }

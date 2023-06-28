@@ -1,0 +1,242 @@
+<script>
+    let products='<%- JSON.stringify(productos) %>'
+    let idpre='<%- JSON.stringify(sale.id) %>'
+    
+    let tiposDePagoBlock=JSON.parse('<%- JSON.stringify(tiposDePagoBlock) %>')
+    let tiposDePagoUser=JSON.parse('<%- JSON.stringify(tiposDePagoUser) %>')
+
+</script>
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <button class="btn btn-info" onclick="history.back()"><i class="fa fa-rotate-left iconoboton"></i>Atrás</button>
+                </div>
+                
+                <br>
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        
+                        <div class="row">
+                            <div class="col-md-1">
+                                <h5>Venta:</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5><%= sale.nombre %> <%= sale.primerApellido %> <%= sale.segundoApellido %></h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5><%= (sale.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Ref:<%= sale.comentario %> </h5>
+                            </div>
+                            <div class="col-md-1">
+                                <% if (sale.estado != 2 ) { %>
+                                <a href="/ventas/venta/delete/<%= sale.id %>"><i class="fas fa-trash" title="Eliminar"></i></a>
+                                <%}%>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5>Elementos</h5>
+                            </div>
+                            
+                            <div class="col-md-4 text-center">
+                                <% if (sale.estado==3){%> 
+                                    <h5><i class="fa fa-circle-xmark nok"></i> <%= estados[2].valor %> </h5>
+                                <% }else if(sale.estado==1){ %>
+                                    <h5><i class="fa fa-user-clock war"></i> <%= estados[0].valor %> </h5>
+                                <%} else {%>
+                                    <h5><i class="fa fa-circle-check ok"></i> <%= estados[1].valor %> </h5>
+                                <%}%>
+                                
+                                
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <% if (sale.estado==1){%> 
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalAcceptSale"><i class="fa fa-clipboard-check iconoboton"></i>Finalizar Venta</button>
+                                <% } else if(sale.estado==2){%> 
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalAcceptSale"><i class="fa fa-file-invoice iconoboton"></i>Ver Factura</button>
+                                <%} %>
+                                
+                            </div>
+
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                                               
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Producto</th>
+                                    <th class="text-center" scope="col">Cantidad</th>
+                                    <th class="text-center" scope="col">Precio</th>
+                                    <th class="text-center" scope="col">IVA</th>
+                                    <th class="text-center" scope="col">Descuento</th>
+                                    <th class="text-center" scope="col">Total</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <% productosVenta.forEach(pr => { %> 
+                                  <tr>
+                                    <td ><%= pr.productnombre %></td>
+                                    <td class="text-center"><%= pr.cantidad %></td>
+                                    <td class="text-center"><%= (pr.precioventa).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></td>
+                                    <td class="text-center"><%= pr.ivanombre %> - <%= pr.valor %>% </td>
+                                    <% if(pr.iddesc==1) { %>
+                                    <td class="text-center"> <%= pr.descuento %> % </td> 
+                                    <% } else if(pr.iddesc==2){ %>
+                                    <td class="text-center">   <%= (pr.descuento).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></td>
+                                    <% } %>
+                                    <td class="text-center "><p class="descuento"><%= (pr.total).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></p>
+                                        <% if(pr.descuento > 0){%>                     
+                                        <small>Descuento: -<%=(pr.descuentoT).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%>  </small>
+                                        <%}%>
+                                    </td>
+                                    <td class="text-end">
+                                        <% if (sale.estado != 2 ) { %>
+                                        <a data-bs-toggle="modal" data-bs-target="#modalEditProductSale<%= pr.id %>" href="#modalEditProductSale<%= pr.id %>"><i class="fas fa-pen"></i></a>
+                                        <a href="/ventas/venta/deleteProductsale/<%= pr.id %>/<%= sale.id %>"><i class="fas fa-trash"></i></a>
+                                        <%}%>
+                                    </td>
+                                  </tr>
+                                  <% }) %> 
+                                  <tr>
+                                    <td ></td>
+                                    <td ></td>
+                                    <td ></td>
+                                    <td ></td>
+                                    <th class="text-end" scope="col">Total:</th>
+                                    <th class="text-center"><%= total.toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></th>
+                                    <td >  </td>
+                                  </tr>
+                                  
+                                </tbody>
+                              </table>
+
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-3">
+                                <% if (sale.estado != 2 ) { %>
+                                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddProductSale"><i class="fa fa-plus iconoboton"></i>Añadir Producto</button>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <% if (sale.estado == 2 ) { %>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5>Datos Venta</h5>
+                            </div>
+                            <div class="col-md-2">
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Finalizada: <%= (sale.fechamodificacion).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card  mb-12 ">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h5>Métodos de pago</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th class="text-center" scope="col">Cantidad</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% pagos.forEach(p => { %> 
+                                                  <tr>
+                                                    <td ><%= p.nombre %></td>
+                                                    <td class="text-center"><%= (p.cantidad).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></td>
+                                                  </tr>
+                                                  <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card  mb-12 ">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h5>Números de serie</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th class="text-center" scope="col">Número de serie</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% nserie.forEach(p => { %> 
+                                                  <tr>
+                                                    <td ><%= p.nombre %></td>
+                                                    <td class="text-center"><%= p.nserie %></td>
+                                                  </tr>
+                                                  <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+    </div>
+</div>
+

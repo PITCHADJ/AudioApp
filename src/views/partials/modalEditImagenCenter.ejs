@@ -1,0 +1,38 @@
+
+<div class="modal" id="modalEditImagenCenter">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Subir imagen</h5>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="container col-md-6">
+                        <form  action="/administracion/centro/imagen" method="POST" enctype="multipart/form-data">
+                            
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Seleccione la imagen deseada como logo del centro</label>
+                                <input name="imagen" class="form-control" type="file" id="formFile" onchange="preview()" >
+                              </div>
+                            <img id="frame" src="" class="img-fluid imagenCompany" />
+                            <div id="botonesmodal from-group">
+                                <button type="submit" class="btn btn-success btn-md" >Subir</button>
+                                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+            
+                    <script>
+                        function preview() {
+                            frame.src = URL.createObjectURL(event.target.files[0]);
+                        }
+                        function clearImage() {
+                            document.getElementById('formFile').value = null;
+                            frame.src = "";
+                        }
+                    </script>
+                
+            </div>
+        </div>
+    </div>    
+</div>

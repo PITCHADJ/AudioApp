@@ -1,0 +1,35 @@
+<div class="modal" id="modalAddEventType">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nuevo tipo de Cita</h5>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>Tipo</label>
+                            <input type="text" class="form-control" name="nombreTipoCita" id="nombreTipoCita" placeholder="Nuevo tipo de cita" required>
+                            <span class="spanModal" id="spanNombreTipoPaciente">0/30</span>
+                        </div>
+                        
+                        <div class="col-md-2 ">
+                            <label>Color Cita</label>
+                            <input type="color" class="form-control tipoColor" name="colorFondoTipoCita" id="colorFondoTipoCita" value="#ffffff" required>
+                        </div>
+
+                    </div>
+                    <br>
+                    
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" id="botonCrearTipoCita" class="btn btn-success btn-md" >Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

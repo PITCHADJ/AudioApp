@@ -1,0 +1,66 @@
+<% productosVenta.forEach(pr => { %>
+<div class="modal" id="modalEditProductSale<%=pr.id%>">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Producto</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/ventas/venta/editproduct/<%=pr.id%>/<%= sale.id %>" method="POST">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="wrapper">
+                                <label>Seleccione producto</label>
+                                <div class="search-input buscadorEditar">
+                                    
+                                    <input class="form-control" type="text" name="productoSeleccionado" id="productoSeleccionado" value="<%= pr.idprod %>" hidden>
+                                    <input type="text" placeholder="Escribe para buscar..." id="buscadorProductos" value="<%= pr.productnombre %> - <%= (pr.precioventa).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %>">
+                                    <ul class="autocom-box" id="product-list-edit">
+                                        
+
+                                    </ul>
+                                    <div class="icon"><i class="fas fa-search"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Cantidad</label>
+                            <input type="number" id="cantidad" name="cantidad" class="form-control" value="<%=pr.cantidad%>" step="1" min="0">
+                        </div>
+                        <div class="col-md-3" id="dp">
+                            <label>Descuento</label>
+                            <div class="input-group tipoDesc" id="dataprecio" data-precio="<%= pr.precioventa %>">
+                                <% if (pr.iddesc==1){%> 
+                                <input type="number" id="descuento" name="descuento" class="form-control" value="<%= pr.descuento %>" step="1" min="0" max="100">
+                                <%} else if(pr.iddesc==2){ %>
+                                <input type="number" id="descuento" name="descuento" class="form-control" value="<%= pr.descuento %>" step="0.01" min="0" max="<%= pr.precioventa %>">
+                                <% } %>
+                                <select class="form-select" name="tipoDesc" id="tipoDesc" data-placeholder="Tipo">
+                                    <option value="1" <% if (pr.iddesc == 1){%> selected <%}%> >%</option>
+                                    <option value="2" <% if (pr.iddesc == 2){%> selected <%}%> >€</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+
+                        
+                        
+                        
+                    </div>
+                    <br>
+                    <div class="row">
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- fin modal-body-->
+        </div> <!-- fin modal-content-->
+    </div><!-- fin modal-dialog-->
+</div><!--fin modal-->
+<% }) %>

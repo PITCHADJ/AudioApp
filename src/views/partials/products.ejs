@@ -10,13 +10,25 @@
             <div class="col-md-12">
                 <div class="card  mb-12 ">
                     <div class="card-header">
-                        <h5>Productos</h5>
+                        <div class="row">
+                            
+                            <div class="col-md-3">
+                                <h5>Productos</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorProductos">
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row tablaProductos">
                             <% if (products.length != 0) {%> 
-                                <table class="table">
-                                    <thead>
+                                <table class="table" >
+                                    <thead class="sticky-top bg-white">
                                       <tr>
                                         <th scope="col"><a href="#">Nombre</a></th>
                                         <th scope="col"><a href="#">Precio Compra</a></th>
@@ -28,21 +40,21 @@
                                         <th scope="col"></th>
                                       </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tablaProductos">
                                       <% products.forEach(p => { %> 
                                       <tr>
                                         <td ><%= p.nombre %></th>
                                         <td ><%= (p.precioCompra).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></th>
                                         <td ><%= (p.precioVenta).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></th>   
-                                        <td ><%= p.tipoIVA %></th>   
+                                        <td ><%= p.tipoIVATex %></th>   
                                         <td ><%= p.cantidad %></th>
-                                        <td ><% if (p.cantidad > 0) { %>Disponible <% } else {%>Agotado <% } %></th>
-                                        <td ><%= p.proveedor %></th>    
+                                        <td ><% if ( (p.cantidad > 0) && (p.cantidad > p.cantidadminima)) { %><i class="fa  fa-circle-check ok" title="Disponible"></i> <% } else if (p.cantidad == 0) {%><i class="fa fa-circle-xmark nok" title="No Disponible"></i> <% } else if ((p.cantidad > 0) && (p.cantidad <= p.cantidadminima) && (p.cantidadminima > 0)) { %> <i class="fa fa-triangle-exclamation war" title="Pocas unidades"></i> <% } %> </th>
+                                        <td ><%= p.proveedorTex %></th>    
                                          
                                         <td class="text-end">
-                                            <a href="/administracion/stock/viewCompany/<%= p.id %>"><i class="fas fa-eye"></i></a>
-                                            <a data-bs-toggle="modal" data-bs-target="#modalEditCompany<%= p.id %>" href="#modalEditCompany<%= p.id %>"><i class="fas fa-pen"></i></a>
-                                            <a href="/administracion/stock/deleteCompany/<%= p.id %>"><i class="fas fa-trash"></i></a>
+                                            <!--<a href="/administracion/stock/viewCompany/<%= p.id %>"><i class="fas fa-eye"></i></a>-->
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditProduct<%= p.id %>" href="#modalEditProduct<%= p.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/administracion/stock/deleteProduct/<%= p.id %>"><i class="fas fa-trash"></i></a>
                                         </td>
                                       </tr>
                                       <% }) %> 

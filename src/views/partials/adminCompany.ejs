@@ -1,0 +1,193 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                   
+                    <div class="col-md-12">
+                        <div class="card md-12">
+                            <div class="card-header">
+                                <h5>Datos Facturación Empresa</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <% if (center.imagen != ''){%> 
+                                        <img class="imagenCompany" src="/img/centers/<%= center.id %>/<%= center.imagen %>" alt="Logo">
+                                        <%} else {%>
+                                            <img class="imagenCompany" src="/img/centers/muestra.jpg" alt="Logo">
+                                        <%}%>
+
+                                    </div>
+                                    
+                                    <div class="col-md-9">
+                                        <table class="table">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">CIF</th>
+                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Dirección</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                                <td> <%= center.nombre %></td>
+                                                <td> <%= center.CIF %></td>
+                                                <td> <%= center.telefono %></td>
+                                                <td> <%= center.email %></td>
+                                                <td> <%= center.direccion %></td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    
+                                        <div class="col-md-3">
+                                            <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEditImagenCenter" href="#modalEditImagenCenter">Cambiar imagen</a>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEditDataCenter" href="#modalEditDataCenter">Editar</a>
+                                        </div>
+                                        
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card md-12">
+                            <div class="card-header">
+                                <h5>Métodos de pago</h5>
+                            </div>
+                            <div class="card-body">
+                                <% metodosDePagoBlock.forEach(mp => { %>
+                                <div class="row">
+                                    <div class="col-sm-9 text-secondary">
+                                        <%= mp.nombre %>
+                                    </div>
+                                    <div class="col-md-3 text-end" >
+                                        
+                                    </div>
+                                </div>
+                                <hr>
+                                <% }) %>
+                                <% metodosDePagoUser.forEach(mp => { %>
+                                <div class="row">
+                                    <div class="col-sm-9 text-secondary">
+                                        <%= mp.nombre %>
+                                    </div>
+                                    <div class="col-md-3 text-end" >
+                                        <a data-bs-toggle="modal" data-bs-target="#modalEditPaymentMethod<%= mp.id %>" href="#modalEditPaymentMethod<%= mp.id %>"><i class="fas fa-pen"></i></a>
+                                        <a href="/administracion/centro/deletePaymentMethod/<%= mp.id %>"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <% }) %>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddPaymentMethod" href="#modalAddPaymentMethod">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card md-12">
+                            <div class="card-header">
+                                <h5>Puestos de trabajo</h5>
+                            </div>
+                            <div class="card-body">
+                                <% puestosDeTrabajo.forEach(p => { %>
+                                    <div class="row">
+                                        <div class="col-sm-9 text-secondary">
+                                            <%= p.nombre %>
+                                        </div>
+                                        <div class="col-md-3 text-end" >
+                                            <% if (p.idcompany != null) {%>
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditJob<%= p.id %>" href="#modalEditJob<%= p.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/administracion/centro/deleteJob/<%= p.id %>"><i class="fas fa-trash"></i></a>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                <% }) %>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddJob" href="#modalAddJob">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card md-12">
+                            <div class="card-header">
+                                <h5>Trabajadores</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Nombre Completo</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Puesto</th>
+                                            <th scope="col">Activo</th>
+                                            <th scope="col">Administrador</th>
+                                            <th scope="col"></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% trabajadores.forEach(t => { %>
+                                                <tr>
+                                                    <td ><%= t.nombre%> <%= t.primerApellido %> <%= t.segundoApellido %></td>
+                                                    <td><%= t.email %></td>
+                                                    <td><%= t.puesto %></td>
+                                                    <td class="text-center"><i class="fa <% if (t.active == 1) { %> fa-circle-check ok <% } else { %>fa-circle-xmark nok <% } %> "></i></td>
+                                                    <td class="text-center"><i class="fa <% if (t.isAdmin == 1) { %> fa-circle-check ok <% } else { %>fa-circle-xmark nok <% } %> "></i></td>
+                                                    <td>
+                                                        <a data-bs-toggle="modal" data-bs-target="#modalEditPassword<%=t.id%>" href="#modalEditPassword<%=t.id%>"><i class="fas fa-key" title="Cambiar Contraseña"></i></a>
+                                                        <a data-bs-toggle="modal" data-bs-target="#modalEditWorker<%= t.id %>" href="#modalEditWorker<%= t.id %>"><i class="fas fa-pen"></i></a>
+                                                        <a href="/administracion/centro/deleteWorker/<%= t.id %>"><i class="fas fa-trash"></i></a>
+                                                    </td>
+                                                   
+                                                </tr>
+                                            
+                                            <% }) %>
+                                             
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddWorker" href="#modalAddWorker">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

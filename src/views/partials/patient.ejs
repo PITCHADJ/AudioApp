@@ -5,10 +5,14 @@
                 type="button" role="tab" aria-controls="nav-datos" aria-selected="true">Datos</button>
             <button class="nav-link <% if (tipo == 1) { %> active <% } %>" id="nav-historial-tab" data-bs-toggle="tab" data-bs-target="#nav-historial"
                 type="button" role="tab" aria-controls="nav-historial" aria-selected="false">Historial</button>
-            <button class="nav-link" id="nav-ventas-tab" data-bs-toggle="tab" data-bs-target="#nav-ventas" type="button"
+            <button class="nav-link <% if (tipo == 2) { %> active <% } %>"" id="nav-ventas-tab" data-bs-toggle="tab" data-bs-target="#nav-ventas" type="button"
                 role="tab" aria-controls="nav-ventas" aria-selected="false">Ventas</button>
-            <button class="nav-link" id="nav-presupuestos-tab" data-bs-toggle="tab" data-bs-target="#nav-presupuestos"
+            <button class="nav-link <% if (tipo == 3) { %> active <% } %>" id="nav-presupuestos-tab" data-bs-toggle="tab" data-bs-target="#nav-presupuestos"
                 type="button" role="tab" aria-controls="nav-presupuestos" aria-selected="false">Presupuestos</button>
+            <button class="nav-link <% if (tipo == 4) { %> active <% } %>" id="nav-pedidos-tab" data-bs-toggle="tab" data-bs-target="#nav-pedidos"
+                type="button" role="tab" aria-controls="nav-pedidos" aria-selected="false">Pedidos</button>
+            <button class="nav-link <% if (tipo == 4) { %> active <% } %>" id="nav-productos-tab" data-bs-toggle="tab" data-bs-target="#nav-productos"
+                type="button" role="tab" aria-controls="nav-productos" aria-selected="false">Productos</button>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -21,7 +25,15 @@
                             
                             <div class="card  mb-3">
                                 <div class="card-header">
-                                    <h5>Datos Principales</h5>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h5>Datos Principales</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="text-center ptp" style="background-color:<%= patient.colorFondo %>; color:<%= patient.colorTexto %>"><%=patient.ptnombre%></div>
+                                        </div>
+                                    </div>
+                                    
                                   </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -177,17 +189,16 @@
         <div class="tab-pane fade <% if (tipo == 1) { %> show active <% } %>" id="nav-historial" role="tabpanel" aria-labelledby="nav-historial-tab" tabindex="0">
             
             <br>
-            
-            <div class="main-body m-2">
+            <div class="container">
+            <div class="main-body">
                 <div class="row">
-                    <div class="col-sm-3">
-                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddHistory" href="#modalAddHistory">Añadir historia</a>
+                    <div class="col-md-3">
+                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddHistory" href="#modalAddHistory"><i class="fas fa-notes-medical iconoboton"></i>Añadir historia</a>
                     </div>
                 </div> <!-- fin fila-->
                 
-            </div> <!-- fin main-body-->
-            <div class="container">
-                <div class="main-body">
+            
+                    <br>
                     <div class="row">
                         <div class="col-md-12">
                             <% histories.forEach(h => { %>
@@ -200,10 +211,10 @@
                                         <div class="col-md-3">
                                             <h7> <%= (h.fechaHistoria).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %> - <%= h.horaHistoria %></h7>
                                         </div>
-                                        <div class="col-md-3">
-
+                                        <div class="col-md-6 text-end">
+                                            <h7><%= h.nombre %> <%= h.primerapellido %> <%= h.segundoapellido %> </h7>
                                         </div>
-                                        <div class="col-md-5 text-end">
+                                        <div class="col-md-2 text-end">
                                             <a data-bs-toggle="modal" data-bs-target="#modalEditHistory<%= h.id %>" href="#modalEditHistory<%= h.id %>"><i class="fas fa-pen"></i></a>
                                             <a href="/pacientes/paciente/deletehistory/<%= patient.id %>/<%= h.id %>"><i class="fas fa-trash"></i></a>
                                         </div>
@@ -223,21 +234,273 @@
             </div> <!-- fin container-->    
         </div>
         <!-- FIN PANEL DE HISTORIAL-->
-        <div class="tab-pane fade" id="nav-ventas" role="tabpanel" aria-labelledby="nav-ventas-tab" tabindex="0">
-            <h3>Ventas</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium
-                aspernatur reiciendis?
-                Suscipit fugit quidem eligendi deleniti!
-            </p>
+        <div class="tab-pane fade <% if (tipo == 2) { %> show active <% } %>" id="nav-ventas" role="tabpanel" aria-labelledby="nav-ventas-tab" tabindex="0">
+            <br>
+            <div class="container">
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-info btn-md" data-bs-toggle="modal" data-bs-target="#modalAddSale"><i class="fas fa-cart-plus iconoboton"></i>Nueva Venta</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card  mb-12 ">
+                                <div class="card-header">
+                                    <div class="row">
+                            
+                                        <div class="col-md-3">
+                                            <h5>Ventas</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorVentasPaciente">
+                                        </div>
+                                        <div class="col-md-3">
+            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row tablaVentas">
+                                        <table class="table " data-toggle="table" data-pagination="true">
+                                            <thead class="sticky-top bg-white">
+                                              <tr>
+                                                <th scope="col">Paciente</th>
+                                                <th scope="col" class="text-center">Estado</th>
+                                                <th scope="col">Referencia</th>
+                                                <th scope="col">Fecha </th>
+                                                <th scope="col"></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="tablaVentas">
+                                              <% sales.forEach(es => { %> 
+                                              <tr>
+                                                <td ><%= es.nombre %> <%= es.primerApellido %> <%= es.segundoApellido %></td>
+                                                <td class="text-center"><i class="fa <% if (es.estado == 1) { %>fa-user-clock war <% } else if (es.estado==2){ %> fa-circle-check ok <% } else if (es.estado==3){ %> fa-circle-xmark nok <% } %>"></i></td> 
+                                                <td><%= es.comentario %></td>
+                                                <td><%= (es.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></td>
+                                                <td class="text-end">
+                                                    <a href="/ventas/venta/<%= es.id %>"><i class="fas fa-pen"></i></a>
+                                                    <a href="/ventas/venta/delete/<%= es.id %>"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                              </tr>
+                                              <% }) %> 
+                                              
+                                            </tbody>
+                                          </table>
+                                        
+                                    </div>
+                                </div>        
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="tab-pane fade" id="nav-presupuestos" role="tabpanel" aria-labelledby="nav-presupuestos-tab" tabindex="0">
-            <h3>Presupuestos</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Porro itaque, saepe magnam accusantium fugit libero nesciunt vero labore quod veniam laudantium iste praesentium
-                aspernatur reiciendis?
-                Suscipit fugit quidem eligendi deleniti!
-            </p>
+        <div class="tab-pane fade <% if (tipo == 3) { %> show active <% } %> " id="nav-presupuestos" role="tabpanel" aria-labelledby="nav-presupuestos-tab" tabindex="0">
+            <br>
+            <div class="container">
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-info btn-md" data-bs-toggle="modal" data-bs-target="#modalAddEstimate"><i class="fas fa-file-invoice iconoboton"></i>Nuevo Presupuesto</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card  mb-12 ">
+                                <div class="card-header">
+                                    <div class="row">
+                            
+                                        <div class="col-md-3">
+                                            <h5>Presupuestos</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorPresupuestosPaciente">
+                                        </div>
+                                        <div class="col-md-3">
+            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row tablaPresupuestos">
+                                        <table class="table" class="table " data-toggle="table" data-pagination="true">
+                                            <thead class="sticky-top bg-white">
+                                              <tr>
+                                                <th scope="col">Paciente</th>
+                                                <th scope="col" class="text-center">Estado</th>
+                                                <th scope="col">Referencia</th>
+                                                <th scope="col">Fecha </th>
+                                                <th scope="col"></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="tablaPresupuestos">
+                                              <% estimates.forEach(es => { %> 
+                                              <tr>
+                                                <td ><%= es.nombre %> <%= es.primerApellido %> <%= es.segundoApellido %></td>
+                                                <td class="text-center"><i class="fa <% if (es.estado == 1) { %>fa-user-clock war <% } else if (es.estado==2){ %> fa-circle-check ok <% } else if (es.estado==3){ %> fa-circle-xmark nok <% } %>"></i></td> 
+                                                <td><%= es.comentario %></td>
+                                                <td><%= (es.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></td>
+                                                <td class="text-end">
+                                                    <% if (es.estado != 3 ) { %>
+                                                        <a href="/presupuestos/presupuesto/<%= es.id %>"><i class="fas fa-pen"></i></a>
+                                                    <%} else {%>
+                                                        <a href="/presupuestos/presupuesto/<%= es.id %>"><i class="fas fa-eye"></i></a>
+                                                    <%}%>
+                                                    <a href="/presupuestos/presupuesto/delete/<%= es.id %>"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                              </tr>
+                                              <% }) %> 
+                                              
+                                            </tbody>
+                                          </table>
+                                        
+                                    </div>
+                                </div>        
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade <% if (tipo == 4) { %> show active <% } %>" id="nav-pedidos" role="tabpanel" aria-labelledby="nav-pedidos-tab" tabindex="0">
+            <br>
+            <div class="container">
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-info btn-md" data-bs-toggle="modal" data-bs-target="#modalAddOrder"><i class="fas fa-dolly iconoboton"></i>Nuevo Pedido</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card  mb-12 ">
+                                <div class="card-header">
+                                    <div class="row">
+                            
+                                        <div class="col-md-3">
+                                            <h5>Pedidos</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorPedidosPaciente">
+                                        </div>
+                                        <div class="col-md-3">
+            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row tablaPedidos">
+                                        <table class="table" class="table " data-toggle="table" data-pagination="true">
+                                            <thead class="sticky-top bg-white">
+                                              <tr>
+                                                <th scope="col">Destinatario</th>
+                                                <th scope="col" class="text-center">Estado</th>
+                                                <th scope="col">Referencia</th>
+                                                <th scope="col">Creación</th>
+                                                <th scope="col">Modificado</th>
+                                                <th scope="col"></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="tablaPedidos">
+                                              <% orders.forEach(p => { %> 
+                                              <tr>
+                                                <td ><%= p.para %></td>
+                                                <td class="text-center"><i class="fa <% if (p.estado == 1) { %>fa-user-clock war <% } else if (p.estado==2){ %> fa-paper-plane enviado <% } else if (p.estado==3){ %> fa-circle-check ok <% } %>"></td>
+                                                <td><%= p.referencia %></td>
+                                                <td><%= (p.fechaCreacion).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></td>
+                                                <td><%= (p.fechaModificacion).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></td>
+                                                <td class="text-end">
+                                                    <% if (p.estado==1){%>
+                                                        <a href="/pedidos/pedido/<%= p.id %>"><i class="fas fa-pen"></i></a>
+                                                        <a href="/pacientes/paciente/pedido/delete/<%= p.id %>/<%=patient.id%>"><i class="fas fa-trash"></i></a>
+                                                    <%} else if (p.estado == 2 ) { %>
+                                                        <a href="/pedidos/pedido/<%= p.id %>"><i class="fas fa-eye"></i></a>
+                                                        <a href="/pacientes/paciente/pedido/delete/<%= p.id %>/<%=patient.id%>"><i class="fas fa-trash"></i></a>
+                                                    <%} else {%>
+                                                        <a href="/pedidos/pedido/<%= p.id %>"><i class="fas fa-eye"></i></a>
+                                                    <% } %>
+                                                    
+                                                </td>
+                                              </tr>
+                                              <% }) %> 
+                                              
+                                            </tbody>
+                                          </table>
+                                        
+                                    </div>
+                                </div>        
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade <% if (tipo == 5) { %> show active <% } %>" id="nav-productos" role="tabpanel" aria-labelledby="nav-productos-tab" tabindex="0">
+            <br>
+            <div class="container">
+                <div class="main-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card  mb-12 ">
+                                <div class="card-header">
+                                    <div class="row">
+                            
+                                        <div class="col-md-6">
+                                            <h5>Productos con número de serie</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <table class="table">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Tipo</th>
+                                                <th class="text-center" scope="col">Número de serie</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col"></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% nserie.forEach(p => { %> 
+                                              <tr>
+                                                <td ><%= p.nombre %></td>
+                                                <td class="text-center"><%= p.nserie %></td>
+                                                <td ><%= (p.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %> %></td>
+                                                <td> 
+                                                    <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-md-3">
+                                                            <form  action="/ventas/venta/<%= p.idsale %>" method="GET">
+                                                                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-cart-shopping iconoboton"></i>Venta</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalAcceptSale"><i class="fas fa-wrench iconoboton"></i>Reparar</button></td>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                              </tr>
+                                              <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
         </div>
 </div>
 </div>

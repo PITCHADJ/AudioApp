@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card md-12">
+                            <div class="card-header">
+                                <h5>Tipo de cita</h5>
+                            </div>
+                            <div class="card-body">
+                                <% tiposCita.forEach(tc => { %>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <%= tc.nombre %>
+                                    </div>
+                                    <div class="col-md-3 " >
+                                        <div class="colorCita" style="background-color:<%=tc.color %>;">
+                                            
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3 text-end" >
+                                        <% if (tc.tipo != 0) {%>
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditEventType<%= tp.id %>" href="#modalEditEventType<%= tp.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/administracion/calendario/deleteEventType/<%= tp.id %>"><i class="fas fa-trash"></i></a>
+                                        <%}%>
+                                        
+                                    </div>
+                                </div>
+                                <hr>
+                                <% }) %>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddEventType" href="#modalAddEventType">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

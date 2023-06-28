@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head')%>
+<body>
+    <div class="alinear">
+      <%- include('partials/leftmenu')%>
+        <div id="right">
+          <div id="botones">
+            <%- include('partials/buttons')%>
+          </div>
+    
+          <div id="contenido">
+            <!-- BUSCADOR -->
+            <div class="container cajabuscador">
+              <div class="text-center">
+                <div class="col-md-6 text-center" id="buscador">
+                  <form class="d-flex">
+                    <input class="form-control me 2" type="search" placeholder="Buscar pacientes">
+                    <button class="btn btn-outline-info" type="send">Search</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            
+            
+              <div class="container text-center usuarios">
+                <div class="cabecerapaciente row p-2">
+                  <div class="col">Nº Paciente</div> 
+                  <div class="col">Nombre</div> 
+                  <div class="col">Apellidos</div>
+                  
+                </div>
+                <% pats.forEach(paciente => { %>
+                <div class="row paciente p-2">
+                  <a href="pacientes/paciente/<%= paciente.id  %>">
+                    <div class="col"><%= paciente.id %></div>
+                    <div class="col"><%= paciente.nombre %></div> 
+                    <div class="col"><%= paciente.primerApellido %> <%= paciente.segundoApellido %></div>
+                    
+                  </a>
+                </div>
+                <% }) %>
+              </div>
+          </div>
+    
+        </div>
+    </div>
+
+
+
+
+
+    
+    <%- include('partials/footerJS')%>
+</body>
+</html>

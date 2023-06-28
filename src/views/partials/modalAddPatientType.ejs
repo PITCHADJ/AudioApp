@@ -1,0 +1,46 @@
+<div class="modal" id="modalAddPatientType">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nuevo tipo de Paciente</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/administracion/paciente/addPatientType" method="POST">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>Tipo</label>
+                            <input type="text" class="form-control" name="nombreTipoPaciente" id="nombreTipoPaciente" placeholder="Nuevo tipo de paciente" required>
+                            <span class="spanModal" id="spanNombreTipoPaciente">0/30</span>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>Color Texto</label>
+                            <input type="color" class="form-control tipoColor" name="colorTextoTipoPaciente" id="colorTextoTipoPaciente" value="#000000" required>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>Color Fondo</label>
+                            <input type="color" class="form-control tipoColor" name="colorFondoTipoPaciente" id="colorFondoTipoPaciente" value="#ffffff" required>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            
+                            <input id="ejemploTipo" class="form-control" placeholder="Vista Previa" style="background-color:rgb(255, 255, 255);" disabled>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" id="botonCrearTipoPaciente" class="btn btn-success btn-md" >Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

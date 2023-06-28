@@ -8,73 +8,14 @@
           <div id="botones">
             <%- include('partials/buttons')%>
           </div>
-    
           <div id="contenido">
-            <!-- BUSCADOR -->
-            <div class="container cajabuscador">
-              <div class="text-center">
-                <div class="col-md-6 text-center" id="buscador">
-                  <form class="d-flex">
-                    <input class="form-control me 2" type="search" placeholder="Buscar pacientes">
-                    <button class="btn btn-outline-info" type="send">Search</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <!--<div class="container">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Teléfono</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% pats.forEach(paciente => { %>
-                  <tr>
-                    <th scope="row"><a href=""><%= paciente.id %></a></th>
-                    <td><a href=""><%= paciente.nombre %></a></td>
-                    <td><a href=""><%= paciente.apellidos %></a></td>
-                    <td><a href=""><%= paciente.email %></a></td>
-                    <td><a href=""><%= paciente.telefono %></a></td>
-                  
-                  </tr>
-                  <% }) %>
-                </tbody>
-              </table>
-          </div>-->
-            
-              <div class="container text-center usuarios">
-                <div class="cabecerapaciente row p-2">
-                  <div class="col">Nº Paciente</div> 
-                  <div class="col">Nombre</div> 
-                  <div class="col">Apellidos</div>
-                  
-                </div>
-                <% pats.forEach(paciente => { %>
-                <div class="row paciente p-2">
-                  <a href="pacientes/paciente/<%= paciente.id  %>">
-                    <div class="col"><%= paciente.id %></div>
-                    <div class="col"><%= paciente.nombre %></div> 
-                    <div class="col"><%= paciente.primerApellido %> <%= paciente.segundoApellido %></div>
-                    
-                  </a>
-                </div>
-                <% }) %>
-              </div>
-           </div>
-    
+              <%- include('partials/patients') %>
+          </div>
+
         </div>
-    </div>
+    </div>    
 
-
-
-
-
-    
-    <%- include('partials/footerJS')%>
-</body>
-</html>
+        <%- include('partials/modalAddPatient')%>    
+        <%- include('partials/footerJS')%>
+    </body>
+    </html>

@@ -1,0 +1,58 @@
+
+<div class="modal" id="modalEditDataCenter">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Centro</h5>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="container col-md-6">
+                        <form  action="/administracion/centro/imagen" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Nombre:</label>
+                                    <input type="text" id="company" name="company" class="form-control" placeholder="Compañía" value="<%= center.nombre %>">  
+                                </div>
+                                <div class="col-md-6">
+                                    <label>CIF:</label>
+                                    <input type="text" id="CIF" name="CIF" class="form-control" placeholder="CIF" value="<%= center.CIF %>">
+                                </div>
+        
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email:</label>
+                                    <input type="email" id="correo" name="correo" class="form-control" placeholder="Email" value="<%= center.email %>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Teléfono:</label>
+                                    <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Teléfono" value="<%= center.telefono %>">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Dirección:</label>
+                                    <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Dirección" value="<%= center.direccion %>">
+                                </div>
+                                
+                            </div>
+                            <br>
+                            <div class="modal-footer">
+                                <div id="botonesmodal from-group">
+                                    <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                                    <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+            
+                    
+                
+            </div>
+        </div>
+    </div>    
+</div>

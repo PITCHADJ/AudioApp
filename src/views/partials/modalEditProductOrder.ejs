@@ -1,0 +1,55 @@
+<% if (order.estado==1){%>
+<% productosPedido.forEach(pr => { %>
+    <div class="modal" id="modalEditProductOrder<%= pr.id %>">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Editar producto</h5>
+                </div>
+                <div class="modal-body">
+                    <% if (tipoProducto == "order") {%> 
+                    <form action="/pedidos/pedido/editProduct/<%= pr.id %>/<%= order.id %>" method="POST">
+                    <%}%>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="wrapper">
+                                    <label>Seleccione producto</label>
+                                    <div class="search-input buscadorEditar">
+                                        
+                                        <input class="form-control" type="text" name="productoSeleccionado" id="productoSeleccionado" value="<%= pr.idProd %>" hidden>
+                                        <input type="text" placeholder="Escribe para buscar..." id="buscadorProductos" value="<%= pr.nombre %>">
+                                        <ul class="autocom-box" id="product-list-edit">
+                                            
+    
+                                        </ul>
+                                        <div class="icon"><i class="fas fa-search"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Cantidad</label>
+                                <input type="number" id="cantidad" name="cantidad" class="form-control" value="<%= pr.cantidad %>" step="1" min="0">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Comentario</label>
+                                <input class="form-control" type="text" placeholder="Comentario" value="<%= pr.comentario %>" name="comentarioPedido" id="comentarioPedido" >
+    
+                            </div>
+                         </div>
+                        <br>
+                        <div class="modal-footer">
+                            <div id="botonesmodal from-group">
+                                <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                                <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+<% }) %>
+<% }%>

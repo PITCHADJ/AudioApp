@@ -1,0 +1,47 @@
+<div class="modal" id="modalAddEstimate">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nuevo Presupuesto</h5>
+            </div>
+            <div class="modal-body">
+                <%if (tipop==0) { %>
+                <form action="/pacientes/paciente/presupuesto/add/<%= patient.id %>" method="POST">
+                <% } else {%>
+                <form action="/presupuestos/add" method="POST">
+                <% } %>
+                    <div class="row">
+                        
+                        <div class="col-md-6">
+                            <label >Paciente</label>
+                            <% if (tipop == 0) { %>
+                            <input type="text" class="form-control" name="paciente" value="<%= patient.nombre %> <%=patient.primerApellido%> <%=patient.segundoApellido %>" disabled>
+                            <% } else {%>
+                                <select class="form-select" name="paciente" >
+                                    <option value="0" selected disabled>Seleccione paciente</option>
+                                    <% pacientes.forEach(p => {%>
+                                        <option value="<%= p.id %>"><%= p.nombre %> <%= p.primerApellido %> <%= p.segundoApellido %> </option>
+                                    <% }) %>
+
+                                </select>
+                            <% } %>
+                        </div>
+                        <div class="col-md-6">
+                            <label >Referencia</label>
+                            <input type="text" class="form-control" placeholder="Referencia Presupuesto" name="comentarioPresupuesto">
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

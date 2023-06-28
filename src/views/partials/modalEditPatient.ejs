@@ -10,31 +10,41 @@
                         <h5>Información General</h5>
                         <br>
                         <div class="col-md-6 form-group">
-                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="<%= patient.nombre %>" >  
+                            <label class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="<%= patient.nombre %>" required >  
                         </div>
                         <div class="col-md-3 form-group">
-                            
-                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" value="<%= patient.primerApellido %>">
+                            <label class="col-form-label">Primer Apellido</label>
+                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" value="<%= patient.primerApellido %>" required>
                         </div>
                         <div class="col-md-3 form-group">
-                            
-                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" value="<%= patient.segundoApellido %>">
+                            <label class="col-form-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" value="<%= patient.segundoApellido %>" >
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="col-form-label">Fecha de nacimiento:</label>
+                            <label class="col-form-label">Tipo</label>
+                            <select class="form-select" name="patientType" <% if(tiposPaciente.length>0){ %> required <%}%>>
+                                <option value="0" disabled>Tipo Paciente</option>
+                                <% tiposPaciente.forEach(tp =>{%> 
+                                <option value="<%=tp.id%>" <% if (patient.patientType == tp.id){ %>selected <% } %> ><%= tp.nombre %></option>
+                                <% }) %>
+                            </select>
                         </div>
                         <div class="col-md-3">
+                            <label class="col-form-label">Fecha de nacimiento</label>
                             <input type="date" class="form-control" name="fechaNacimiento"
                             value="<%= (patient.fechaNacimiento).getFullYear() %>-<%let mes=(patient.fechaNacimiento).getMonth()+1; mes="0"+mes; let dia=(patient.fechaNacimiento).getDate(); dia="0"+dia; %><%= mes.slice(-2) %>-<%= dia.slice(-2) %>">
                         </div>
                         
                         <div class="col-md-3">
+                            <label class="col-form-label">DNI/NIE</label>
                             <input type="text" class="form-control" placeholder="DNI / NIE" name="DNI" value="<%= patient.DNI %>">
                         </div>
                         <div class="col-md-3">
+                            <label class="col-form-label">Género</label>
                             <select class="form-select" name="genero">
                                 <option value="0" disabled>Género</option>
                                 <option value="1" <% if (patient.genero == 1){ %>selected <% } %>>Mujer</option>
@@ -49,12 +59,15 @@
                     <div class="row">
                         <h5>Dirección</h5>
                         <div class="col-md-6 form-group">
+                            <label class="col-form-label">Calle, número, portal, piso</label>
                             <input type="text" class="form-control" placeholder="Calle, número, portal, piso" name="direccion" value="<%= patient.direccion %>">
                         </div>
                         <div class="col-md-3 form-group">
+                            <label class="col-form-label">Población</label>
                             <input type="text" class="form-control" placeholder="Población" name="poblacion" value="<%= patient.poblacion %>">
                         </div>
                         <div class="col-md-3 form-group">
+                            <label class="col-form-label">C.P</label>
                             <input type="text" class="form-control" placeholder="Código Postal" name="cp" value="<%= patient.cp %>">
                         </div> 
                     </div>

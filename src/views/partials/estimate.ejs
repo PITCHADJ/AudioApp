@@ -1,0 +1,156 @@
+<script>
+    let products='<%- JSON.stringify(productos) %>'
+    let idpre='<%- JSON.stringify(estimate.id) %>'
+</script>
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <button class="btn btn-info" onclick="history.back()"><i class="fa fa-rotate-left iconoboton"></i>Atrás</button>
+                </div>
+                
+                <br>
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        
+                        <div class="row">
+                            <div class="col-md-1">
+                                <h5>Presup:</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5><%= estimate.nombre %> <%= estimate.primerApellido %> <%= estimate.segundoApellido %></h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5><%= (estimate.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Ref:<%= estimate.comentario %> </h5>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="/presupuestos/presupuesto/delete/<%= estimate.id %>"><i class="fas fa-trash" title="Eliminar"></i></a>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5>Elementos</h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <% if (estimate.estado==3){%> 
+                                    <h5><i class="fa fa-circle-xmark nok"></i> <%= estados[2].valor %> </h5>
+                                <% }else{ %>
+                                    <h5><i class="fa fa-user-clock war"></i> <%= estados[0].valor %> </h5>
+                                <% } %>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <% if (estimate.estado==1){%> 
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form action="/presupuestos/presupuesto/updateEstimate/<%=estimate.id%>/2" method="POST">
+                                                <button type="submit" class="btn btn-success btn-sm">Aceptar Presupuesto</button> 
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="/presupuestos/presupuesto/updateEstimate/<%=estimate.id%>/3" method="POST">
+                                                <button type="submit" class="btn btn-danger btn-sm" >Rechazar Presupuesto</button>
+                                            </form>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    
+                                    <!---->
+                                    
+                                <%} %>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                                               
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Producto</th>
+                                    <th class="text-center" scope="col">Cantidad</th>
+                                    <th class="text-center" scope="col">Precio</th>
+                                    <th class="text-center" scope="col">IVA</th>
+                                    <th class="text-center" scope="col">Descuento</th>
+                                    <th class="text-center" scope="col">Total</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <% productosPresupuesto.forEach(pr => { %> 
+                                  <tr>
+                                    <td ><%= pr.productnombre %></td>
+                                    <td class="text-center"><%= pr.cantidad %></td>
+                                    <td class="text-center"><%= (pr.precioventa).toLocaleString("es-ES", { style: "currency", currency: "EUR" }) %></td>
+                                    <td class="text-center"><%= pr.ivanombre %> - <%= pr.valor %>% </td>
+                                    <% if(pr.iddesc==1) { %>
+                                    <td class="text-center"> <%= pr.descuento %> % </td> 
+                                    <% } else if(pr.iddesc==2){ %>
+                                    <td class="text-center">   <%= (pr.descuento).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></td>
+                                    <% } %>
+                                    <td class="text-center "><p class="descuento"><%= (pr.total).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></p>
+                                        <% if(pr.descuento > 0){%>                     
+                                        <small>Descuento:-<%=(pr.descuentoT).toLocaleString("es-ES", { style: "currency", currency: "EUR" })%>  </small>
+                                        <%}%>
+                                    </td>
+                                     
+                                    <td class="text-end">
+                                        <% if (estimate.estado != 3 ) { %>
+                                        <a data-bs-toggle="modal" data-bs-target="#modalEditProductEstimate<%= pr.id %>" href="#modalEditProductEstimate<%= pr.id %>"><i class="fas fa-pen"></i></a>
+                                        <a href="/presupuestos/presupuesto/deleteProductEstimate/<%= pr.id %>/<%= estimate.id %>"><i class="fas fa-trash"></i></a>
+                                        <%}%>
+                                    </td>
+                                    
+                                  </tr>
+                                  <% }) %> 
+                                  <tr>
+                                    <td ></td>
+                                    <td ></td>
+                                    <td ></td>
+                                    <td ></td>
+                                    <th class="text-end" scope="col">Total:</th>
+                                    <th class="text-center"><%= total.toLocaleString("es-ES", { style: "currency", currency: "EUR" })%></th>
+                                    <td >  </td>
+                                  </tr>
+                                  
+                                </tbody>
+                              </table>
+
+                        </div>
+                        <% if (estimate.estado!=3){%> 
+                        <div class="row">
+                            <div class="col-md-3">
+                                
+                                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddProductEstimate"><i class="fa fa-plus iconoboton"></i>Añadir Producto</button>
+                                
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

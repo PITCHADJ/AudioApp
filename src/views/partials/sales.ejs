@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddSale"><i class="fas fa-cart-plus iconoboton"></i>Nueva Venta</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <div class="row">
+                            
+                            <div class="col-md-3">
+                                <h5>Ventas</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorProductos">
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row tablaProductos">
+                            <table class="table">
+                                <thead  class="sticky-top bg-white">
+                                  <tr>
+                                    <th scope="col">Paciente</th>
+                                    <th scope="col" class="text-center">Estado</th>
+                                    <th scope="col">Comentario</th>
+                                    <th scope="col">Fecha </th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tablaProductos">
+                                  <% sales.forEach(sa => { %> 
+                                  <tr>
+                                    <td ><%= sa.nombre %> <%= sa.primerApellido %> <%= sa.segundoApellido %></td>
+                                    <td class="text-center"><i class="fa <% if (sa.estado == 1) { %>fa-user-clock war" title="Pendiente" <% } else if (sa.estado==2){ %> fa-circle-check ok" title="Aceptado" <% } else if (sa.estado==3){ %> fa-circle-xmark nok" title="Rechazado" <% } %>"></i></td> 
+                                    <td><%= sa.comentario %></td>
+                                    <td><%= (sa.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></td>
+                                    <td class="text-end">
+                                        <% if(sa.estado == 2){%>
+                                            <a href="/ventas/venta/<%= sa.id %>"><i class="fas fa-eye"></i></a>
+                                        <%} else {%>
+                                        <a href="/ventas/venta/<%= sa.id %>"><i class="fas fa-pen"></i></a>
+                                        <a href="/ventas/venta/delete/<%= sa.id %>"><i class="fas fa-trash"></i></a>
+                                        <%} %>
+                                            
+                                    </td>
+                                  </tr>
+                                  <% }) %> 
+                                  
+                                </tbody>
+                              </table>
+                            
+                        </div>
+
+                    </div>        
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

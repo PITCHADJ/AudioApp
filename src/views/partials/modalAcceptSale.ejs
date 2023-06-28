@@ -1,0 +1,69 @@
+<div class="modal" id="modalAcceptSale">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Aceptar Venta</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/ventas/venta/acceptSale/<%= sale.id %>" method="POST">
+                    <div class="row">
+                       <h5> Números de serie necesarios </h5>
+                    </div>
+                        
+                        <% productosVenta.forEach(pr => { %>
+                            <% if (pr.ns==1) {%>
+                                <% for( let i=0; i< pr.cantidad; i++) {%> 
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="text" id="ns" name="idprod" class="form-control" value="<%= pr.idprod %>" hidden>
+                                            <%=pr.productnombre %>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="ns" name="ns" class="form-control" placeholder="Nº Serie" required>
+                                            
+                                        </div>
+                                    </div>
+                                    <br>
+                                <%}%>    
+                            <%}%> 
+
+    
+                        <%})%>
+
+                        <div class="row">
+                            <h5> Métodos de pago </h5>
+                         </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            Seleccione cuantos tipos de pago desea:
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" name="npagos" id="npagos" data-placeholder="Números de pagos" required>
+                                <option value="">Seleccione</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="tiposPago">
+                        
+
+                    </div>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Cerrar Venta</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

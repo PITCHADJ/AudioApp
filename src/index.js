@@ -7,14 +7,42 @@ const express = require('express');
 const path = require('path');
 //const indexRoutes=require('./routes/routes')
 const morgan = require('morgan');
+const flash = require('connect-flash');
+const session = require('express-session')
+const mysqlstore=require('express-mysql-session')
+const passport=require('passport')
+
+
+
+
+const {database}=require('./keys')
 
 
 const app= express();
+require('./lib/passport')
 
 //middleware
+app.use(session({
+    secret:'audioapp',
+    resave: false,
+    saveUninitialized: false,
+    store: new mysqlstore(database)
+}))
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(flash())
+
+//variable globales
+app.use((req,res,next)=>{
+    app.locals.msgsuccess=req.flash('success')
+    app.locals.msgerror=req.flash('error')
+    app.locals.usersession=req.user
+    
+    next()
+})
 
 //const __dirname = dirname(fileURLToPath(import.meta.url))
 console.log(__dirname);
@@ -24,11 +52,15 @@ app.set('view engine','ejs');
 
 //Routes
 app.use(require('./routes/routes'));
-app.use(require('./routes/authentication'));
+app.use('/auth',require('./routes/authentication'));
 app.use('/pacientes',require('./routes/patients'));
 app.use('/administracion',require('./routes/administration'));
 app.use('/productos',require('./routes/products'));
 app.use('/pedidos',require('./routes/orders'));
+app.use('/calendario',require('./routes/calendar'));
+app.use('/presupuestos',require('./routes/estimates'));
+app.use('/ventas',require('./routes/sales'));
+
 
 //public
 app.use(express.static(path.join(__dirname,'public')));

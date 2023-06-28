@@ -3,44 +3,42 @@
     <%- include('partials/head')%>
 <body>
     <%- include('partials/navigation')%>
-    <section class="vh-50 gradient-custom">
-        <div class="container py-5 h-50">
-          <div class="row d-flex justify-content-center align-items-center h-50">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
-      
-                  <div class="mb-md-5 mt-md-4 pb-5">
-                    
-                    <div class="d-flex align-items-center mb-3 pb-1">
-                        <!--<i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                        <span class="h1 fw-bold mb-">Logo</span>-->
-                        <img src="img/logoAudio.png"  id="logoIndex">
-                    </div>
-                    <!--<h2 class="fw-bold mb-2 text-uppercase">Login</h2>-->
-                    <p class="text-white-50 mb-5">Please enter your login and password!</p>
-      
-                    <div class="form-outline form-white mb-4">
-                      <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                      <label class="form-label" for="typeEmailX">Email</label>
-                    </div>
-      
-                    <div class="form-outline form-white mb-4">
-                      <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                      <label class="form-label" for="typePasswordX">Password</label>
-                    </div>
-      
-                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-      
-                    <button class="btn btn-outline-light btn-lg px-5" onclick="" type="submit">Login</button>
-            
-                  </div>     
+    <div class="container p-4">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <%- include('./partials/message') %>
                 </div>
-              </div>
+                <div class="col-md-4 mx-auto">
+                    
+                    <div class="card  text-center">
+                        
+                        <div class="card-header">
+                            <h3> Inicia Sesión</h3>
+                        </div>
+                        <div class="card-body">
+                            <img src="img/logoAudio.png"  id="logoIndex" class="card-im-top mx-auto m-2">
+                            <form action="/auth/signin" method="POST">
+                                <div class="row">
+                                    <input class="form-control" type="text" name="username" placeholder="Usuario">
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <input class="form-control" type="password" name="password" placeholder="Contraseña">
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <button class="btn btn-info btn-block">Iniciar sesión</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
+        
+    </div>
+
+
     <%- include('partials/footer')%>
 </body>
 </html>

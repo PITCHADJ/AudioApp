@@ -1,0 +1,77 @@
+<% trabajadores.forEach(t => { %>
+<div class="modal" id="modalEditWorker<%=t.id%>">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Trabajador</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/administracion/centro/editWorker/<%= t.id %>" method="POST">
+                    <div class="row">
+                        <h5>Información General</h5>
+                        <br>
+                        <div class="col-md-6 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="<%=t.nombre%>" required>  
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" value="<%=t.primerApellido%>" required>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Segundo Apellido" value="<%=t.segundoApellido%>" name="segundoApellido" >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Email" name="email" value="<%=t.email%>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" name="job" required>
+                                <option value="" disabled>Seleccione puesto de trabajo</option>
+                                <% puestosDeTrabajo.forEach(p => { %>
+                                    <option value="<%= p.id %>" <%if (t.puestoTrabajo == p.id){%> selected <%}%> ><%= p.nombre %></option>
+                                <% }) %>
+
+                            </select>
+                        </div>
+                       
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <h5>Permisos</h5>
+                        <br>
+                        <div class=" col-md-3">
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" name="active" <% if(t.active) {%> checked <%}%> >
+                                <label class="form-check-label">Activo</label>
+                            </div>
+                        </div>
+                        <div class=" col-md-3">
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" name="administrator" <% if(t.isAdmin) {%> checked <%}%> >
+                                <label class="form-check-label">Administrador</label>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <br>
+
+                    
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<%})%>

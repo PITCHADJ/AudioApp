@@ -1,0 +1,90 @@
+<div class="modal" id="modalAddWorker">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Nuevo Trabajador</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/administracion/centro/addWorker" method="POST">
+                    <div class="row">
+                        <h5>Información General</h5>
+                        <br>
+                        <div class="col-md-6 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" required>  
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" required>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            
+                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Email" name="email" required>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" name="job" required>
+                                <option value="" selected disabled>Seleccione puesto de trabajo</option>
+                                <% puestosDeTrabajo.forEach(p => { %>
+                                    <option value="<%= p.id %>"><%= p.nombre %></option>
+                                <% }) %>
+
+                            </select>
+                        </div>
+                       
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <h5>Contraseña</h5>
+                        <br>
+                        <div class="col-md-6">
+                            
+                            <input type="password" class="form-control" placeholder="Contraseña" name="validation" minlength="8" required> 
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <input type="password" class="form-control" placeholder="Repite Contraseña" name="validation2" minlength="8" required>
+                        </div>
+                       
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <h5>Permisos</h5>
+                        <br>
+                        <div class=" col-md-3">
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="active" name="active" checked>
+                                <label class="form-check-label">Activo</label>
+                            </div>
+                        </div>
+                        <div class=" col-md-3">
+                            <div class="form-check form-switch form-check-inline">
+                                <input class="form-check-input form-control" type="checkbox" id="administrator" name="administrator">
+                                <label class="form-check-label">Administrador</label>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <br>
+
+                    
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="submit" class="btn btn-success btn-md" >Crear</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

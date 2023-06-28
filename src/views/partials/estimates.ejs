@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modalAddEstimate"><i class="fas fa-file-invoice iconoboton"></i>Nuevo Presupuesto</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card  mb-12 ">
+                    <div class="card-header">
+                        <div class="row">
+                            
+                            <div class="col-md-3">
+                                <h5>Presupuestos</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Escribe para filtrar..." id="buscadorProductos">
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row tablaProductos">
+                            <table class="table">
+                                <thead  class="sticky-top bg-white">
+                                  <tr>
+                                    <th scope="col">Paciente</th>
+                                    <th scope="col" class="text-center">Estado</th>
+                                    <th scope="col">Referencia</th>
+                                    <th scope="col">Fecha </th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tablaProductos">
+                                  <% estimates.forEach(es => { %> 
+                                  <tr>
+                                    <td ><%= es.nombre %> <%= es.primerApellido %> <%= es.segundoApellido %></td>
+                                    <td class="text-center"><i class="fa <% if (es.estado == 1) { %>fa-user-clock war" title="Pendiente" <% } else if (es.estado==2){ %> fa-circle-check ok" title="Aceptado" <% } else if (es.estado==3){ %> fa-circle-xmark nok" title="Rechazado" <% } %>"></i></td> 
+                                    <td><%= es.comentario %></td>
+                                    <td><%= (es.fecha).toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'}) %></td>
+                                    <td class="text-end">
+                                        <% if (es.estado != 3 ) { %>
+                                            <a href="/presupuestos/presupuesto/<%= es.id %>"><i class="fas fa-pen"></i></a>
+                                        <%} else {%>
+                                            <a href="/presupuestos/presupuesto/<%= es.id %>"><i class="fas fa-eye"></i></a>
+                                        <%}%>
+                                        <a href="/presupuestos/presupuesto/delete/<%= es.id %>"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                  </tr>
+                                  <% }) %> 
+                                  
+                                </tbody>
+                              </table>
+                            
+                        </div>
+
+                    </div>        
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

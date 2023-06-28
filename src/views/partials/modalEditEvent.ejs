@@ -1,0 +1,84 @@
+<div class="modal" id="modalEditEvent">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Editar Cita</h5>
+            </div>
+            <div class="modal-body">
+                <form id="formularioEditEvent" action="/calendario/EditEvent" method="POST">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Paciente</label>
+                            <select class="form-select" name="paciente" id="pacienteEditEvent">
+                                <option value="0" selected disabled>Seleccione paciente</option>
+                                <% pacientes.forEach(p => {%>
+                                    <option value="<%= p.id %>"><%= p.nombre %> <%= p.primerApellido %> <%= p.segundoApellido %> </option>
+                                <% }) %>
+
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Atiende</label>
+                            <select class="form-select" name="atiende" id="atiendeEditEvent">
+                            <option value="0" selected disabled>Seleccione responsable de cita</option>
+                                <% atiende.forEach(p => {%>
+                                    <option value="<%= p.id %>"><%= p.identificadorCita %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Tipo de Cita</label>
+                            <select class="form-select" name="tipoCita" id="tipoCitaEdit">
+                            <option value="0" selected disabled>Seleccione tipo de cita</option>
+                                <% tipoCita.forEach(tc => {%>
+                                    <option value="<%= tc.id %>"><%= tc.nombre %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Fecha</label>
+                            
+                                <input type="date" class="form-control" name="fechaEditEvent" id="fechaEditEvent">
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <label>Hora de inicio</label>
+                            
+                                <input type="time" class="form-control" name="horaInicioEditEvent" id="horaInicioEditEvent">
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <label>Hora de fin</label>
+                            
+                                <input type="time" class="form-control" name="horaFinEditEvent" id="horaFinEditEvent">
+                            
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Comentario</label>                           
+                            <input type="text" class="form-control" name="comentarioEditEvent" id="comentarioEditEvent">
+                            <span class="spanModal" id="spanComentarioEditEvento">0/100</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div id="botonesmodal from-group">
+                            <button type="button" class="btn btn-danger btn-md" ><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-success btn-md" >Guardar</button>
+                            <button type="button" class="btn btn-danger btn-md" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

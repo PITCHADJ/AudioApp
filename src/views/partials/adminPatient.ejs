@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card md-12">
+                            <div class="card-header">
+                                <h5>Tipo de paciente</h5>
+                            </div>
+                            <div class="card-body">
+                                <% tiposPaciente.forEach(tp => { %>
+                                <div class="row">
+                                    <div class="col-md-9" style="background-color:<%=tp.colorFondo %>; color:<%= tp.colorTexto %>">
+                                        <%= tp.nombre %>
+                                    </div>
+                                    <div class="col-md-3 text-end" >
+                                        <% if (tp.tipo==1) {%>
+                                            <a data-bs-toggle="modal" data-bs-target="#modalEditPatientType<%= tp.id %>" href="#modalEditPatientType<%= tp.id %>"><i class="fas fa-pen"></i></a>
+                                            <a href="/administracion/paciente/deletePatientType/<%= tp.id %>"><i class="fas fa-trash"></i></a>
+                                        <%}%>    
+                                    </div>
+
+
+                                </div>
+                                <hr>
+                                <% }) %>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalAddPatientType" href="#modalAddPatientType">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

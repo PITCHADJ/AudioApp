@@ -11,32 +11,41 @@
                         <br>
                         <div class="col-md-6 form-group">
                             
-                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" >  
+                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" maxlength="60" required>  
                         </div>
                         <div class="col-md-3 form-group">
                             
-                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" >
+                            <input type="text" class="form-control" placeholder="Primer Apellido" name="primerApellido" maxlength="40" required>
                         </div>
                         <div class="col-md-3 form-group">
                             
-                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" >
+                            <input type="text" class="form-control" placeholder="Segundo Apellido" name="segundoApellido" maxlength="40" >
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="col-form-label">Fecha de nacimiento:</label>
+                            <label class="col-form-label">Tipo</label>
+                            <select class="form-select" name="patientType" <% if(tiposPaciente.length>0){ %> required <%}%>>
+                                <option value="" selected disabled>Tipo Paciente</option>
+                                <% tiposPaciente.forEach(tp =>{%> 
+                                <option value="<%=tp.id%>" ><%= tp.nombre %></option>
+                                <% }) %>
+                            </select>
                         </div>
                         <div class="col-md-3">
-                            <input type="date" class="form-control" name="fechaNacimiento">
+                            <label class="col-form-label">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" name="fechaNacimiento" required>
                         </div>
                         
                         <div class="col-md-3">
-                            <input type="text" class="form-control" placeholder="DNI / NIE" name="DNI">
+                            <label class="col-form-label">DNI/NIE</label>
+                            <input type="text" class="form-control" placeholder="DNI / NIE" name="DNI" maxlength="9" required>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-select" name="genero">
-                                <option value="0" selected disabled>Género</option>
+                            <label class="col-form-label">Género</label>
+                            <select class="form-select" name="genero" required>
+                                <option value="" selected disabled>Género</option>
                                 <option value="1">Mujer</option>
                                 <option value="2">Hombre</option>
                                 <option value="3">Otro</option>
@@ -49,45 +58,27 @@
                         <h5>Contacto principal</h5>
                         <br>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="telefono" name="telefono">
+                            <input type="text" class="form-control" placeholder="Teléfono" name="telefono" required>
                         </div>
                         
                         <div class="col-md-6">
                             <input type="text" class="form-control" placeholder="Email" name="email">
                         </div>
-                        <!--<div class="col-md-3">
-                            <label class="col-form-label">Seleccione tipo</label>
-                        </div>
                         
-                        <div class="col-md-3">
-                            <select class="form-select" name="contacto">
-                                <option value="1">Teléfono</option>
-                                <option value="2">Email</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="contacto">
-                        </div>-->
 
                     </div>
-                    <!--<div class="row">
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-success btn-md" >Añadir otro</button>
-                        </div>
-                        
-
-                    </div>-->
+                    
                     <br>
                     <div class="row">
                         <h5>Dirección</h5>
                         <div class="col-md-6 form-group">
-                            <input type="text" class="form-control" placeholder="Calle, número, portal, piso" name="direccion" >
+                            <input type="text" class="form-control" placeholder="Calle, número, portal, piso" name="direccion" required>
                         </div>
                         <div class="col-md-3 form-group">
-                            <input type="text" class="form-control" placeholder="Población" name="poblacion" >
+                            <input type="text" class="form-control" placeholder="Población" name="poblacion" required>
                         </div>
                         <div class="col-md-3 form-group">
-                            <input type="text" class="form-control" placeholder="Código Postal" name="cp" >
+                            <input type="text" class="form-control" placeholder="Código Postal" name="cp" required>
                         </div> 
                     </div>
                     <br>
