@@ -66,10 +66,14 @@
                                     </div>
                                     <div class="col-md-4 text-end">
                                         <% if (order.estado==1){%> 
-                                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalAcceptSale">Marcar Enviado a proveedor</button>
+                                            <form action="/pedidos/pedido/<%= order.id %>/2" method="POST">
+                                            <button type="submit" class="btn btn-success btn-sm" >Marcar Enviado a proveedor</button>
+                                        </form>
                                         <% } else if(order.estado==2){%> 
-                                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalAcceptSale">Marcar Entregado</button>
-                                        <%} %>
+                                            <form action="/pedidos/pedido/<%= order.id %>/3" method="POST">
+                                            <button type="submit" class="btn btn-success btn-sm">Marcar Entregado</button>
+                                        </form>
+                                            <%} %>
                                         
                                     </div>
         

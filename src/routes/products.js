@@ -10,11 +10,11 @@ router.get('/',async (req,res)=> {
 
   const marcas = await pool.query('SELECT * FROM companies where ambm = 1 and idcompany=?',[req.user.company])
   const proveedores = await pool.query('SELECT * FROM companies where ambp = 1 and idcompany=?',[req.user.company])
-  const tipoblock = await pool.query('SELECT * FROM producttype where tipo=0 and idcompany=?',[req.user.company])
+  const tipoblock = await pool.query('SELECT * FROM producttype where tipo=0')
   const tipouser= await pool.query('SELECT * FROM producttype where tipo=1 and idcompany=?',[req.user.company])
-  const ivablock=await pool.query('SELECT * FROM ivatype where tipo=0 and idcompany=?',[req.user.company])
+  const ivablock=await pool.query('SELECT * FROM ivatype where tipo=0')
   const ivauser=await pool.query('SELECT * FROM ivatype where tipo=1 and idcompany=?',[req.user.company])
-  const allivas=await pool.query('SELECT * FROM ivatype WHERE  idcompany=?',[req.user.company] )
+  const allivas=await pool.query('SELECT * FROM ivatype WHERE idcompany is NULL or  idcompany=?',[req.user.company] )
   const products=await pool.query('SELECT * FROM product WHERE  idcompany=?',[req.user.company])
 
   //console.log(proveedores)

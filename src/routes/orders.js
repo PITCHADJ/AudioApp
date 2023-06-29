@@ -73,6 +73,7 @@ router.get('/pedido/:id', async (req,res)=>{
     let order={}
     if(tipo[0].tipo == 1 ){
         pedido = await pool.query('SELECT orders.id, orders.idcompany, orders.referencia, orders.estado, patient.nombre, patient.primerApellido, patient.segundoApellido, companies.company FROM orders , patient, companies  where orders.id = ? and orders.idcompany=? and patient.idcompany=? and companies.idcompany=? and orders.idpac=patient.id and orders.idcomp=companies.id LIMIT 1',[req.params.id, req.user.company, req.user.company, req.user.company])
+        console.log('pedido',pedido)
         order={
             id:pedido[0].id,
             paciente: pedido[0].nombre+" "+pedido[0].primerApellido+" "+pedido[0].segundoApellido,
@@ -169,6 +170,45 @@ router.get('/pedido/deleteProductOrder/:id/:idorder',async (req, res) => {
     res.redirect(url)
 })
 
+router.post('/pedido/:idorder/:tipo',async (req, res) => {
+    let tipo=req.params.tipo
+    let idorder= req.params.idorder
+    const pedido=await pool.query('SELECT * FROM orders WHERE id=? and idcompany=?',[idorder, req.user.company])
+
+    if(pedido[0].estado == 1 && tipo ==2){
+        //enviamos a proveedor
+        await pool.query('UPDATE orders SET estado=2 where id=? and idcompany=?',[idorder, req.user.company],async function(err, result, fields) {
+            if (err) {
+                req.flash('error','Error al cambiar estado de pedido')
+                let url='/pedidos/pedido/'+idorder
+                res.redirect(url)
+            }else{
+                req.flash('success','Estado actualizado correctamente')
+                let url='/pedidos/pedido/'+idorder
+                res.redirect(url)
+            }
+        })
+    }else if (pedido[0].estado == 2 && tipo ==3){
+        await pool.query('UPDATE orders SET estado=3 where id=? and idcompany=?',[idorder, req.user.company],async function(err, result, fields) {
+            if (err) {
+                req.flash('error','Error al cambiar estado de pedido')
+                let url='/pedidos/pedido/'+idorder
+                res.redirect(url)
+            }else{
+                req.flash('success','Estado actualizado correctamente')
+                let url='/pedidos/pedido/'+idorder
+                res.redirect(url)
+            }
+        })
+
+    }
+    req.flash('error','Error no coinciden los estados')
+    let url='/pedidos/pedido/'+idorder
+    res.redirect(url)
+
+    
+    
+})
 
 
 const pool=require('../database')

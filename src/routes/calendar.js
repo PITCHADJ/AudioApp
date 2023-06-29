@@ -40,7 +40,7 @@ function parserEventos (eventos){
             extendedProps: {
                 idpac: evento.paciente,
                 idWorker: evento.asignada,
-                doctor: "Johanna",
+                doctor: evento.unombre + " "+ evento.uprimerapellido,
                 tipo: evento.tipo
             }
         }
@@ -62,11 +62,20 @@ function parserEventos (eventos){
 
 router.get('/',async (req,res)=> {
     const pacientes = await pool.query('SELECT * FROM patient WHERE idcompany=?',[req.user.company])
-    let atiende=[{
+    /*let atiende=[{
         id:1,
         identificadorCita: "Johanna"
-    }]
-    const eventos = await pool.query('SELECT event.*, patient.nombre, primerApellido, segundoApellido, eventtype.color FROM event, patient, eventtype where event.paciente=patient.id and event.tipo=eventtype.id and patient.idcompany=?',[req.user.company])
+    }]*/
+    let usuarios =await pool.query('SELECT * FROM usuario where company=?',[req.user.company])
+    let atiende =[]
+    usuarios.forEach(u => {
+        let a = {
+            id: u.id,
+            identificadorCita: u.nombre +" "+ u.primerApellido + " "+ u.segundoApellido
+        }
+        atiende.push(a)
+    }); 
+    const eventos = await pool.query('SELECT event.*, usuario.nombre as unombre, usuario.primerapellido as uprimerapellido, usuario.segundoapellido as usegundoapellido, patient.nombre, patient.primerApellido, patient.segundoApellido, eventtype.color FROM event, patient, eventtype, usuario where event.paciente=patient.id and event.tipo=eventtype.id and event.asignada=usuario.id and patient.idcompany=?',[req.user.company])
     const tipoCita= await pool.query('SELECT * FROM eventtype where idcompany is NULL or idcompany=?',[req.user.company])
     let evnts=parserEventos(eventos)
     

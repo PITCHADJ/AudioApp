@@ -41,10 +41,10 @@ router.post('/add',async (req,res)=>{
 router.get('/venta/:id',async (req,res)=>{
     const estados= await pool.query('SELECT * FROM estimatesStates')
     const sale= await pool.query('SELECT estimates.id, estimates.idpac, estimates.estado, estimates.comentario, estimates.fecha, estimates.fechamodificacion, patient.nombre, patient.primerApellido, patient.segundoApellido FROM estimates, patient where estimates.tipo=2 and estimates.id=? and estimates.idpac=patient.id LIMIT 1',[req.params.id])
-    const productos= await pool.query('SELECT * FROM product where cantidad>0')
+    const productos= await pool.query('SELECT * FROM product where cantidad>0 and idcompany=?', [req.user.company])
     const productosVenta = await pool.query('SELECT dataestimate.*, product.nombre as productnombre, product.precioventa, product.tipoIVA, product.ns, ivatype.nombre as ivanombre, ivatype.valor FROM dataestimate, product, ivatype where dataestimate.idpres=? and dataestimate.idprod=product.id and product.tipoIVA=ivatype.id',[req.params.id])
     const tiposDePagoBlock= await pool.query('SELECT * FROM paymentmethods WHERE tipo=0')
-    const tiposDePagoUser= await pool.query('SELECT * FROM paymentmethods WHERE tipo=1')
+    const tiposDePagoUser= await pool.query('SELECT * FROM paymentmethods WHERE tipo=1 and idcompany=?',[req.user.company])
     /*let tiposDePago=[{
         id:1,
         nombre: "Efectivo"
@@ -235,14 +235,14 @@ router.post('/venta/acceptSale/:idsale',async (req,res)=>{
             }
             nserie.push(p)
         }
-        if(req.body.npagos >1){
+        if(parseInt(req.body.npagos) >1){
             console.log('npagos es array')
             for(let j=0; j<req.body.npagos; j++){
                 let p={
                     idTipoPago:req.body.metodopago[j],
                     total:req.body.pago[j]
                 }
-                totalpagos+=p.total
+                totalpagos+=parseFloat(p.total)
                 npagos.push(p)
             }
         }else{
@@ -250,9 +250,10 @@ router.post('/venta/acceptSale/:idsale',async (req,res)=>{
                 idTipoPago:req.body.metodopago,
                 total:req.body.pago
             }
-            totalpagos+=p.total
+            totalpagos+= parseFloat(p.total)
             npagos.push(p)
         }
+        console.log(total, totalpagos)
         if(total == totalpagos){
             console.log("El pago es completo")
             /*añadir numeros de serie a paciente idpac, idproducto, nserie, fechaventa*/
@@ -310,7 +311,7 @@ router.post('/venta/acceptSale/:idsale',async (req,res)=>{
     
     
 
-    console.log(nserie, npagos)
+   
 })
 
 const pool=require('../database')

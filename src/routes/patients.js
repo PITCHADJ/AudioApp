@@ -1,6 +1,28 @@
 const express=require('express')
 const router=express.Router()
 
+const multer = require('multer')
+var fs = require('fs');
+
+const storageUsers = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log(req.user.company)
+        var dir = 'src/public/img/users/'+req.params.id;
+
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+      cb(null, dir)
+    },
+    filename: function (req, file, cb) {
+        console.log(req)
+      //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.originalname)
+    }
+  })
+  
+  const upload = multer({ storage: storageUsers })
+
 /* GET PACIENTES */
 router.get('/',async (req,res)=>{
     const patients = await pool.query('SELECT patient.*, patientType.id as ptid, patientType.nombre as ptnombre, patientType.colorTexto, patientType.colorFondo FROM patient, patientType where patient.idcompany=? and patient.patientType=patienttype.id order by id asc',[req.user.company])
@@ -33,8 +55,8 @@ router.get('/paciente/:id', async (req,res)=>{
         const pedidos =await pool.query('SELECT * FROM orders where idpac = ? order by fechaModificacion desc',[req.params.id])
         const estimates = await pool.query('SELECT estimates.*, patient.nombre, patient.primerApellido, patient.segundoApellido FROM estimates, patient where estimates.tipo=1 and patient.id=estimates.idpac and patient.id = ? order by estimates.fecha desc',[req.params.id, req.params.id])
         const sales = await pool.query('SELECT estimates.*, patient.nombre, patient.primerApellido, patient.segundoApellido FROM estimates, patient where estimates.tipo=2 and patient.id=estimates.idpac and patient.id = ? order by estimates.fecha desc',[req.params.id, req.params.id])
-        const tiposPaciente=await pool.query('SELECT * FROM patientType')
-        const companies = await pool.query('SELECT * FROM companies where ambp=1')
+        const tiposPaciente=await pool.query('SELECT * FROM patientType WHERE idcompany is NULL or idcompany=?', [req.user.company])
+        const companies = await pool.query('SELECT * FROM companies where ambp=1 and idcompany=?', [req.user.company])
         const nserie= await pool.query('SELECT *, product.nombre FROM serialnumbers, product WHERE idpac=? and idprod=product.id',[req.params.id])
         console.log(nserie)
         let orders=[]
@@ -113,6 +135,8 @@ router.get('/paciente/:id/:sel', async (req,res)=>{
                 break;
             case 'p': tipo=4
                 break;
+            case 'f': tipo=6
+                break;
             default: tipo = 0
         }
         //console.log('Tenemos el tipo:',tipo)
@@ -123,8 +147,8 @@ router.get('/paciente/:id/:sel', async (req,res)=>{
         const pedidos =await pool.query('SELECT * FROM orders where idpac = ? ORDER BY fechaModificacion desc',[req.params.id])
         const estimates = await pool.query('SELECT estimates.*, patient.nombre, patient.primerApellido, patient.segundoApellido FROM estimates, patient where estimates.tipo=1 and patient.id=estimates.idpac and patient.id = ? order by estimates.fecha desc',[req.params.id, req.params.id])
         const sales = await pool.query('SELECT estimates.*, patient.nombre, patient.primerApellido, patient.segundoApellido FROM estimates, patient where estimates.tipo=2 and patient.id=estimates.idpac and patient.id = ? order by estimates.fecha desc',[req.params.id, req.params.id])
-        const tiposPaciente=await pool.query('SELECT * FROM patientType')
-        const companies = await pool.query('SELECT * FROM companies where ambp=1')
+        const tiposPaciente=await pool.query('SELECT * FROM patientType WHERE idcompany is NULL or idcompany=?', [req.user.company])
+        const companies = await pool.query('SELECT * FROM companies where ambp=1 and idcompany=?', [req.user.company])
         const nserie= await pool.query('SELECT *, product.nombre FROM serialnumbers, product WHERE idpac=? and idprod=product.id',[req.params.id])
         let orders=[]
         pedidos.forEach(p =>{
@@ -195,20 +219,36 @@ router.post('/paciente/editcontact/:idusu/:id',async (req, res) => {
     const contact=req.params.id
     
     //console.log(user,contact, req.body.contacto)
-    await pool.query('UPDATE contacts SET valor = ?, comentario = ? WHERE id = ? and idusu = ? ',[req.body.contacto, req.body.comentario, contact, user])
-    req.flash('success','Contacto editado correctamente')
-    let url='/pacientes/paciente/'+user
-    res.redirect(url)
+    await pool.query('UPDATE contacts SET valor = ?, comentario = ? WHERE id = ? and idusu = ? ',[req.body.contacto, req.body.comentario, contact, user],async function(err, result, fields) {
+        if (err) {
+            req.flash('error','Error al editar el contacto')
+            let url='/pacientes/paciente/'+user
+            res.redirect(url)
+        }else{
+            req.flash('success','Contacto editado correctamente')
+            let url='/pacientes/paciente/'+user
+            res.redirect(url)
+        }
+    })
+   
 })
     /* ELIMINAR CONTACTO */
 router.get('/paciente/deletecontact/:idusu/:id',async (req, res) => {
     const user=req.params.idusu
     const contact=req.params.id
-    await pool.query('DELETE FROM contacts WHERE id = ? and idusu = ?',[contact, user])
+    await pool.query('DELETE FROM contacts WHERE id = ? and idusu = ?',[contact, user],async function(err, result, fields) {
+        if (err) {
+            req.flash('error','Error al eliminar el contacto')
+            let url='/pacientes/paciente/'+user
+            res.redirect(url)
+        }else{
+            req.flash('success','Contacto eliminado correctamente')
+            let url='/pacientes/paciente/'+user
+            res.redirect(url)
+        }
+    })
     //console.log(user,contact)
-    req.flash('success','Contacto eliminado correctamente')
-    let url='/pacientes/paciente/'+user
-    res.redirect(url)
+    
 })
 
 /* AÑADIR COMENTARIO PACIENTE */
@@ -221,8 +261,9 @@ router.post('/comment/add/:id',async (req, res) => {
     console.log(datos)
     await pool.query('INSERT INTO comments SET ?',[datos],async function(err, result, fields) {
         if (err) {
-            console.log('Error al insertar comentario')
-            res.send('Error al insertar comentario')
+            req.flash('error','Error al añadir comentario')
+            let url='/pacientes/paciente/'+req.params.id
+            res.redirect(url)
         }else{
             req.flash('success','Comentario añadido correctamente')
             let url='/pacientes/paciente/'+req.params.id
@@ -235,8 +276,9 @@ router.post('/comment/add/:id',async (req, res) => {
 router.post('/comment/edit/:id',async (req, res) => {
     await pool.query('UPDATE comments SET comentario = ? WHERE idusu = ?', [req.body.comentario, req.params.id],async function(err, result, fields) {
         if (err) {
-            console.log('Error al editar comentario')
-            res.send('Error al editar comentario')
+            req.flash('error','Error al editar comentario')
+            let url='/pacientes/paciente/'+req.params.id
+            res.redirect(url)
         }else{
             req.flash('success','Comentario editado correctamente')
             let url='/pacientes/paciente/'+req.params.id
@@ -250,8 +292,9 @@ router.post('/comment/edit/:id',async (req, res) => {
 router.get('/comment/delete/:id',async (req, res) => {
     await pool.query('DELETE FROM comments WHERE idusu = ?', [req.params.id],async function(err, result, fields) {
         if (err) {
-            console.log('Error al eliminar comentario')
-            res.send('Error al eliminar comentario')
+            req.flash('error','Error al eliminar comentario')
+            let url='/pacientes/paciente/'+req.params.id
+            res.redirect(url)
         }else{
             req.flash('success','Comentario eliminado correctamente')
             let url='/pacientes/paciente/'+req.params.id
@@ -279,7 +322,7 @@ router.post('/add',async (req, res) => {
       cp: paciente.cp,
       patientType: paciente.patientType,
       idcompany: req.user.company,
-      ncliente: np
+      ncliente: np[0].nextpaciente
  
     }
     console.log(datos)
@@ -298,10 +341,11 @@ router.post('/add',async (req, res) => {
             console.log('Error al insertar contactos')
             res.send('Error al insertar contacto')
           }else{
-            await pool.query('UPDATE center SET nextpaciente=? where id=?',[np+1,req.user.company],function(err, result, fields) {
+            let sigPac=np[0].nextpaciente + 1
+            await pool.query('UPDATE center SET nextpaciente=? where id=?',[sigPac,req.user.company],function(err, result, fields) {
                 if (err) {
-                    console.log('Error al aumentar pacientes')
-                    res.send('Error al aumentar pacientes')
+                    let url='/pacientes'
+                    res.redirect(url)
                   }else{
                     let url='/pacientes/paciente/'+idusu
                     res.redirect(url)
@@ -314,49 +358,6 @@ router.post('/add',async (req, res) => {
 });
 
 
-/* EDITAR PACIENTE*/
-/*router.post('/paciente/edit/:id',async (req, res) => {
-    console.log (req.body)
-    const paciente = req.body
-   
-    const datos={
-      nombre: paciente.nombre,
-      primerApellido: paciente.primerApellido,
-      segundoApellido: paciente.segundoApellido,
-      fechaNacimiento: paciente.fechaNacimiento,
-      DNI: paciente.DNI,
-      genero: paciente.genero,
-      direccion: paciente.direccion,
-      poblacion: paciente.poblacion,
-      cp: paciente.cp
-  
-    }
-    console.log(datos)
-    let idusu=0
-    await pool.query('INSERT INTO patient SET ?',[datos],async function(err, result, fields) {
-      if (err) {
-        console.log('Error al insertar paciente')
-        res.send('Error al insertar paciente')
-      }else{
-        idusu=result.insertId
-        console.log('numero de paciente:',result.insertId);
-        let contacto=[[result.insertId,2,paciente.email],[result.insertId,1,paciente.telefono]]
-        console.log(contacto)
-        await pool.query('INSERT INTO contacts (idusu, tipo, valor) VALUES ?',[contacto],function(err, result, fields) {
-          if (err) {
-            console.log('Error al insertar contactos')
-            res.send('Error al insertar contacto')
-          }else{
-            // TEnemos que redireccionar al paciente creado
-            req.flash('success','Paciente editado correctamente')
-            let url='/pacientes/paciente/'+idusu
-            res.redirect(url)
-          }
-        })
-      }
-    })  
-});*/
-
 /**** HISTORIAS */
 router.post('/paciente/historia/add/:id',async (req, res) => {
     const idusu=req.params.id
@@ -368,12 +369,20 @@ router.post('/paciente/historia/add/:id',async (req, res) => {
         horaHistoria: req.body.horaHistoria,
         tipo: req.body.tipoHistoria
     }
-    await pool.query('INSERT INTO histories SET ?',[hist])
-    console.log (hist)
+    await pool.query('INSERT INTO histories SET ?',[hist],async function(err, result, fields) {
+        if (err) {
+            req.flash('error','Error al añadir historia')
+            let url='/pacientes/paciente/'+idusu+'/h'
+            res.redirect(url)
+        }else{
+            req.flash('success','Historia añadida correctamente')
+            let url='/pacientes/paciente/'+idusu+'/h'
+            res.redirect(url)
+        }
+    })
+    
     //res.send('Historia recibida')
-    req.flash('success','Historia añadida correctamente')
-    let url='/pacientes/paciente/'+idusu+'/h'
-    res.redirect(url)
+    
 })
 
     /* EDITAR HISTORIA */
@@ -390,21 +399,37 @@ router.post('/paciente/edithistory/:idusu/:id',async (req, res) => {
         tipo: req.body.tipoHistoria
     }
     //console.log(user,history, req.body)
-    await pool.query('UPDATE histories SET ? WHERE id = ? and idusu = ? ',[hist, history, idusu])
-    req.flash('success','Historia editada correctamente')
-    let url='/pacientes/paciente/'+idusu+'/h'
-    res.redirect(url)
+    await pool.query('UPDATE histories SET ? WHERE id = ? and idusu = ? ',[hist, history, idusu],async function(err, result, fields) {
+        if (err) {
+            req.flash('error','Error al editar historia')
+            let url='/pacientes/paciente/'+idusu+'/h'
+            res.redirect(url)
+        }else{
+            req.flash('success','Historia editada correctamente')
+            let url='/pacientes/paciente/'+idusu+'/h'
+            res.redirect(url)
+        }
+    })
+    
     
 })
     /* ELIMINAR HISTORIA */
 router.get('/paciente/deletehistory/:idusu/:id',async (req, res) => {
     const user=req.params.idusu
     const history=req.params.id
-    await pool.query('DELETE FROM histories WHERE id = ? and idusu = ?',[history, user])
+    await pool.query('DELETE FROM histories WHERE id = ? and idusu = ?',[history, user],async function(err, result, fields) {
+        if (err) {
+            req.flash('error','Error al eliminar historia')
+            let url='/pacientes/paciente/'+user+'/h'
+            res.redirect(url)
+        }else{
+            req.flash('success','Historia eliminada correctamente')
+            let url='/pacientes/paciente/'+user+'/h'
+            res.redirect(url)
+        }
+    })
     //console.log(user,contact)
-    req.flash('success','Historia eliminada correctamente')
-    let url='/pacientes/paciente/'+user+'/h'
-    res.redirect(url)
+    
 })
 
 /* AÑADIR VENTA */
@@ -412,14 +437,17 @@ router.post('/paciente/venta/add/:id',async (req, res) => {
 
     const data={    
         idpac: parseInt(req.params.id),
-        comentario: req.body.comentarioPresupuesto,
+        comentario: req.body.comentarioVenta,
+        estado:1,
         tipo:2
     }
     console.log(data)
     await pool.query('INSERT INTO estimates SET ?',[data],async function(err, result, fields) {
         if (err) {
-          console.log('Error al crear presupuesto')
-          res.send('Error al crear presupuesto')
+            idusu=req.params.id
+            req.flash('error','Error al crear Venta')
+            let url='/pacientes/paciente/'+idusu+'/v'
+            res.redirect(url)
         }else{
             idusu=req.params.id
             req.flash('success','Venta creada correctamente')
@@ -488,6 +516,15 @@ router.get('/paciente/pedido/delete/:id/:idusu',async (req, res) => {
           }
     })
     
+})
+
+
+
+router.post('/paciente/:id/uploadfiles',upload.array('imagenes',100), async (req, res) => {
+    console.log(req.body)
+    let idusu = req.params.id
+    let url='/pacientes/paciente/'+idusu+'/f'
+    res.redirect(url)
 })
 
 
